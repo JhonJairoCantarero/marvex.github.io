@@ -109,7 +109,8 @@ import stripe from '../assets/portafolio/STRIPE.png';
             filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
         }
 
-        .floating-logo img {
+        .floating-logo img,
+        .floating-logo-img {
             width: 80px;
             height: 80px;
             object-fit: contain;
@@ -2152,7 +2153,7 @@ import stripe from '../assets/portafolio/STRIPE.png';
     <!-- Logo flotante interactivo -->
     <div class="floating-logo hidden" id="floatingLogo">
         <div class="logo-mask">
-                            <MarvexLogo />
+                            <MarvexLogo class="floating-logo-img" />
             <div class="logo-particles" id="logoParticles"></div>
         </div>
     </div>
