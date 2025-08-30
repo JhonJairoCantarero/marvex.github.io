@@ -7,6 +7,16 @@ export interface Props {
 }
 
 const { class: className = '', alt = 'Marvex Logo' } = Astro.props;
+
+// Determinar el estilo según la clase
+let style = "max-width: 100%; height: auto;";
+if (className.includes('loader-logo')) {
+  style = "max-width: 200px; max-height: 200px;";
+} else if (className.includes('footer-logo')) {
+  style = "max-width: 80px;";
+} else if (className.includes('floating-logo-img')) {
+  style = "width: 80px; height: 80px; object-fit: contain;";
+}
 ---
 
-<img src={marvexLogo.src} alt={alt} class={className} style="max-width: 100%; height: auto;" />
+<img src={marvexLogo.src} alt={alt} class={className} style={style} />
