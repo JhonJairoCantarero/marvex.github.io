@@ -5,5 +5,5 @@ import { defineConfig } from 'astro/config';
 
 export default defineConfig({
     site: 'https://JhonJairoCantarero.github.io',
-    base: 'marvex.github.io-',
+    base: 'marvex.github.io',
   })
