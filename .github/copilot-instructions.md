@@ -1,0 +1,7 @@
+- [x] Proyecto inicializado con Astro usando la plantilla básica.
+- [ ] Personalizar el proyecto según requerimientos del usuario.
+- [ ] Instalar extensiones necesarias (si aplica).
+- [ ] Compilar y verificar el proyecto.
+- [ ] Crear y ejecutar tareas (si aplica).
+- [ ] Lanzar el proyecto (si el usuario lo solicita).
+- [ ] Verificar documentación completa.

@@ -1,11 +1,3413 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Landing Page FEC - Porcelanato Premium - Estilo GTA 6
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marvex - Porcelanato Premium | Transforma tu Realidad</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #000;
+            color: white;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Cursor personalizado */
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-trail {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.3s ease;
+        }
+
+        /* Loader dramático */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            transform: scale(1.1);
+        }
+
+        .loader-logo {
+            max-width: 200px;
+            max-height: 200px;
+            animation: logoGlow 2s ease-in-out infinite alternate;
+            filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.8));
+        }
+
+        /* Logo flotante interactivo */
+        .floating-logo {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            pointer-events: none;
+            mix-blend-mode: difference;
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+        }
+
+        .floating-logo img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+            transition: all 0.3s ease;
+            border-radius: 50%;
+        }
+
+        .floating-logo.hidden {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.5);
+        }
+
+        .floating-logo.visible {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        /* Máscara del logo */
+        .logo-mask {
+            position: relative;
+            overflow: hidden;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(230, 126, 34, 0.9) 0%, rgba(243, 156, 18, 0.7) 100%);
+            box-shadow: 
+                0 0 30px rgba(230, 126, 34, 0.5),
+                inset 0 0 20px rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo-mask::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(44, 62, 80, 0.9) 0%, rgba(52, 73, 94, 0.7) 100%);
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            opacity: 0.8;
+        }
+
+        .logo-mask.active::before {
+            transform: scale(1);
+        }
+
+        /* Efecto de partículas alrededor del logo */
+        .logo-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .logo-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(230, 126, 34, 0.8);
+            border-radius: 50%;
+            animation: particleFloat 3s linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translate(0, 0) scale(0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--x), var(--y)) scale(1);
+                opacity: 0;
+            }
+        }
+
+        @keyframes logoGlow {
+            0% { 
+                transform: scale(1) rotate(0deg);
+                filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.8));
+            }
+            100% { 
+                transform: scale(1.1) rotate(5deg);
+                filter: drop-shadow(0 0 50px rgba(255, 255, 255, 1));
+            }
+        }
+
+        /* Hero Section con video/background dinámico */
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('/src/assets/porci.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            filter: brightness(0.7) contrast(1.2);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.8) 100%);
+            z-index: 1;
+        }
+
+        /* Partículas flotantes */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: particleFloat 8s linear infinite;
+        }
+
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 1s; }
+        .particle:nth-child(3) { left: 30%; animation-delay: 2s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 3s; }
+        .particle:nth-child(5) { left: 50%; animation-delay: 4s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 5s; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 6s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 7s; }
+        .particle:nth-child(9) { left: 90%; animation-delay: 0s; }
+        .particle:nth-child(10) { left: 15%; animation-delay: 3.5s; }
+        .particle:nth-child(11) { left: 85%; animation-delay: 1.5s; }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Contenido principal */
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            max-width: 1200px;
+            padding: 0 20px;
+        }
+
+        .hero-title {
+            font-size: clamp(1.5rem, 4vw, 3.5rem);
+            font-weight: 300;
+            background: linear-gradient(45deg, #fff, #f0f0f0, #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: titleSlideIn 1.5s ease-out 0.5s forwards;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            letter-spacing: 1px;
+        }
+
+        @keyframes titleSlideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .marvex-brand {
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: marvexSlideIn 1.5s ease-out 0.2s forwards;
+        }
+
+        .marvex-text {
+            font-size: clamp(2.2rem, 4.8vw, 3.6rem);
+            font-weight: 600;
+            font-style: normal;
+            background: linear-gradient(90deg, 
+                #d35400 0%, 
+                #e67e22 15%, 
+                #f39c12 30%, 
+                #f1c40f 45%, 
+                #f39c12 60%, 
+                #e67e22 75%, 
+                #d35400 100%);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+            overflow: hidden;
+            animation: marvexWave 8s ease-in-out infinite;
+        }
+
+        @keyframes marvexWave {
+            0% {
+                background-position: -100% 0%;
+            }
+            25% {
+                background-position: 0% 0%;
+            }
+            50% {
+                background-position: 100% 0%;
+            }
+            75% {
+                background-position: 200% 0%;
+            }
+            100% {
+                background-position: 300% 0%;
+            }
+        }
+
+        .marvex-text::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #e67e22, #f39c12, #e67e22);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: marvexWrite 2s ease-out 0.5s forwards;
+            transform: translateX(-100%);
+        }
+
+        @keyframes marvexSlideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes marvexWrite {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        .hero-subtitle {
+            font-size: clamp(0.75rem, 1.8vw, 1.2rem);
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: subtitleSlideIn 1.5s ease-out 1s forwards;
+            font-weight: 100;
+            letter-spacing: 0.5px;
+        }
+
+        @keyframes subtitleSlideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Botones dramáticos */
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: buttonsSlideIn 1.5s ease-out 1.5s forwards;
+        }
+
+        @keyframes buttonsSlideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #e67e22, #f39c12);
+            color: white;
+            padding: 1rem 2rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 10px 30px rgba(230, 126, 34, 0.4);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(230, 126, 34, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            padding: 0.875rem 1.75rem;
+            font-size: 0.8rem;
+            font-weight: 400;
+            border: 3px solid white;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-secondary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: white;
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .btn-secondary:hover::before {
+            left: 0;
+        }
+
+        .btn-secondary:hover {
+            color: #000;
+            transform: translateY(-5px) scale(1.05);
+        }
+
+        /* Sección de Beneficios - Línea de Tiempo */
+        .benefits-section {
+            background: white;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .benefits-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%232c3e50" opacity="0.02"/><circle cx="75" cy="75" r="1" fill="%232c3e50" opacity="0.02"/><circle cx="50" cy="10" r="0.5" fill="%232c3e50" opacity="0.01"/><circle cx="10" cy="60" r="0.5" fill="%232c3e50" opacity="0.01"/><circle cx="90" cy="40" r="0.5" fill="%232c3e50" opacity="0.01"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            pointer-events: none;
+        }
+
+        .benefits-title {
+            font-size: clamp(1.4rem, 2.5vw, 2rem);
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .benefits-title.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .benefits-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #e67e22, #f39c12);
+            border-radius: 2px;
+        }
+
+        .timeline-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #e67e22, #f39c12, #e67e22);
+            transform: translateX(-50%);
+            border-radius: 1px;
+            box-shadow: 0 0 10px rgba(230, 126, 34, 0.3);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-item.left {
+            padding-right: 50%;
+        }
+
+        .timeline-item.right {
+            padding-left: 50%;
+        }
+
+        .timeline-content {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 20px;
+            position: relative;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.4s ease;
+        }
+
+        .timeline-item.right .timeline-content {
+            transform: translateX(30px);
+        }
+
+        .timeline-content.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Animación de salida más suave */
+        .timeline-content:not(.visible) {
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+        }
+
+        .timeline-item.left .timeline-content::before {
+            right: -20px;
+            border-left-color: white;
+        }
+
+        .timeline-item.right .timeline-content::before {
+            left: -20px;
+            border-right-color: white;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.12);
+            border-color: #e67e22;
+        }
+
+        .timeline-icon {
+            position: absolute;
+            top: 50%;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #e67e22, #f39c12);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: #ffffff;
+            box-shadow: 0 4px 8px rgba(230, 126, 34, 0.3);
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .timeline-item.left .timeline-icon {
+            right: -50px;
+        }
+
+        .timeline-item.right .timeline-icon {
+            left: -50px;
+        }
+
+        .timeline-text h3 {
+            color: #2c3e50;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .timeline-text p {
+            color: #666;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Sección Marvex Porcelanato & Revestimientos */
+        .marvex-info-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 80px 20px;
+            position: relative;
+        }
+
+        .marvex-info-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(44,62,80,0.02)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            pointer-events: none;
+        }
+
+        .marvex-info-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .marvex-info-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 300;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        .marvex-info-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #e67e22, #f39c12);
+            border-radius: 2px;
+        }
+
+        .marvex-info-text {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .marvex-description {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            font-weight: 300;
+            text-align: justify;
+            padding: 0 20px;
+        }
+
+        .marvex-description:last-child {
+            margin-bottom: 0;
+        }
+
+        .marvex-description strong {
+            color: #e67e22;
+            font-weight: 600;
+        }
+
+        /* Animación de Espacios dentro del carrusel */
+        .spaces-transition-container {
+            position: relative;
+            max-width: 350px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 1 auto;
+        }
+
+        .spaces-transition-container {
+            position: relative;
+            max-width: 400px;
+            margin: 0;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 1 auto;
+        }
+
+        .space-item {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .space-item.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .space-item.prev {
+            opacity: 0;
+            visibility: hidden;
+            transform: translate(-50%, -50%) scale(0.8) translateX(-100px);
+        }
+
+        .space-item.next {
+            opacity: 0;
+            visibility: hidden;
+            transform: translate(-50%, -50%) scale(0.8) translateX(100px);
+        }
+
+        .space-icon {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #d2b48c, #bc8f8f);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s ease;
+            box-shadow: 0 10px 30px rgba(139, 115, 85, 0.2);
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .space-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #bc8f8f, #d2b48c);
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform 0.5s ease;
+        }
+
+        .space-item.active .space-icon::before {
+            transform: scale(1);
+        }
+
+        .space-icon i {
+            font-size: 3rem;
+            color: white;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .space-item.active .space-icon {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(139, 115, 85, 0.3);
+        }
+
+        .space-item.active .space-icon i {
+            transform: rotate(360deg);
+        }
+
+        .space-content {
+            flex: 1;
+            text-align: left;
+        }
+
+        .space-item h3 {
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: #8b7355;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .space-item p {
+            font-size: 1.1rem;
+            color: #a0522d;
+            line-height: 1.6;
+            font-weight: 100;
+            transition: all 0.3s ease;
+        }
+
+        .space-item.active h3 {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .space-item.active p {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Indicadores de navegación de espacios */
+        .spaces-dots {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .space-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(139, 115, 85, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .space-dot::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #d2b48c, #bc8f8f);
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform 0.3s ease;
+        }
+
+        .space-dot.active::before {
+            transform: scale(1);
+        }
+
+        .space-dot:hover {
+            transform: scale(1.2);
+        }
+
+        .space-dot.active {
+            transform: scale(1.3);
+            box-shadow: 0 0 15px rgba(139, 115, 85, 0.4);
+        }
+
+        /* Carrusel con efecto de profundidad y perspectiva */
+        .carousel-section {
+            background: white;
+            padding: 100px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .title-spaces-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-bottom: 30px;
+            gap: 40px;
+            padding: 0 20px;
+            flex-direction: row;
+            max-width: 900px;
+            margin-left: 50px;
+            margin-right: auto;
+        }
+
+        .carousel-title {
+            font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+            font-weight: 300;
+            color: #2c3e50;
+            text-align: right;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            flex: 0 1 auto;
+            max-width: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .title-section {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: center;
+            flex: 0 1 auto;
+            max-width: 400px;
+        }
+
+        .porcelanato-text {
+            color: #8b7355;
+            font-weight: 400;
+        }
+
+        .marvex-subtitle {
+            font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+            font-weight: 400;
+            color: #8b7355;
+            text-align: right;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        .porcelanato-subtitle {
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            font-weight: 300;
+            color: #8b7355;
+            text-align: right;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .carousel-container {
+            position: relative;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1000px;
+            padding: 0 50px;
+            overflow: hidden;
+        }
+
+        .carousel-track {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateX(0);
+            padding: 0 20px;
+        }
+
+        .carousel-item {
+            width: 300px;
+            height: 380px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.6s ease;
+            position: relative;
+            transform-origin: center;
+            opacity: 0.5;
+            z-index: 1;
+        }
+
+        .carousel-item.active {
+            transform: scale(1.2);
+            opacity: 1;
+            z-index: 10;
+            box-shadow: 0 25px 60px rgba(230, 126, 34, 0.18);
+        }
+
+        .carousel-item.left {
+            transform: scale(0.95);
+            opacity: 0.8;
+            z-index: 5;
+        }
+        .carousel-item.right {
+            transform: scale(0.95);
+            opacity: 0.8;
+            z-index: 5;
+        }
+
+        .carousel-item.far-left {
+            transform: scale(0.85);
+            opacity: 0.5;
+            z-index: 1;
+        }
+        .carousel-item.far-right {
+            transform: scale(0.85);
+            opacity: 0.5;
+            z-index: 1;
+        }
+
+        .carousel-item:hover {
+            transform: scale(1.05) !important;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            z-index: 20;
+        }
+
+        .carousel-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .carousel-content {
+            padding: 20px;
+            height: 160px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .carousel-content h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .carousel-content p {
+            color: #555;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            font-weight: 400;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Navegación del carrusel */
+        .carousel-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .carousel-dots {
+            display: flex;
+            gap: 10px;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ddd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: #e67e22;
+            transform: scale(1.2);
+        }
+
+        .carousel-btn {
+            background: transparent;
+            border: 2px solid #ddd;
+            color: #666;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-btn:hover {
+            border-color: #e67e22;
+            color: #e67e22;
+            transform: scale(1.1);
+        }
+
+        /* Sección de Portafolio */
+        .portfolio-section {
+            padding: 20px 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            position: relative;
+        }
+
+        .portfolio-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(44,62,80,0.02)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .portfolio-header {
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .portfolio-title {
+            font-size: clamp(1.6rem, 3vw, 2.5rem);
+            font-weight: 300;
+            color: #2c3e50;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 3px;
+        }
+
+        .portfolio-subtitle {
+            font-size: 1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .portfolio-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin-top: 5px;
+            overflow: hidden;
+            padding: 0;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            position: relative;
+        }
+
+        .portfolio-grid::before,
+        .portfolio-grid::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100px;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .portfolio-grid::before {
+            left: 0;
+            background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+        }
+
+        .portfolio-grid::after {
+            right: 0;
+            background: linear-gradient(to left, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+        }
+
+        .portfolio-row {
+            display: flex;
+            gap: 0;
+            position: relative;
+            width: max-content;
+            margin-bottom: 0;
+        }
+
+        .portfolio-item {
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            width: 196px;
+            position: relative;
+            opacity: 0.8;
+        }
+
+        .portfolio-row {
+            display: flex;
+            gap: 0;
+            position: relative;
+            width: max-content;
+            animation: slideRight 40s linear infinite;
+            margin-bottom: 0;
+        }
+
+        @keyframes slideRight {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .portfolio-row::before,
+        .portfolio-row::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 50px;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .portfolio-row::before {
+            left: 0;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.8) 0%, transparent 100%);
+        }
+
+        .portfolio-row::after {
+            right: 0;
+            background: linear-gradient(to left, rgba(255, 255, 255, 0.8) 0%, transparent 100%);
+        }
+
+        .portfolio-grid::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .portfolio-grid::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .portfolio-grid::-webkit-scrollbar-thumb {
+            background: #e67e22;
+            border-radius: 4px;
+        }
+
+        .portfolio-grid::-webkit-scrollbar-thumb:hover {
+            background: #d35400;
+        }
+
+        .portfolio-item {
+            border-radius: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            width: 196px;
+            position: relative;
+            opacity: 0.8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .portfolio-item:hover {
+            opacity: 1;
+            z-index: 10;
+        }
+
+        .portfolio-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(44, 62, 80, 0.9);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: center;
+            z-index: 10;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .portfolio-image {
+            width: 100%;
+            height: 300px;
+            object-fit: contain;
+            transition: all 0.4s ease;
+            margin: 0;
+            padding: 0;
+            display: block;
+        }
+
+        .portfolio-item:hover .portfolio-image {
+            transform: scale(1.02);
+        }
+
+        /* Media query para pantallas grandes */
+        @media (min-width: 1200px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 0;
+            }
+            
+            .portfolio-item {
+                width: 210px;
+            }
+            
+            .portfolio-image {
+                height: 350px;
+                object-fit: contain;
+            }
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            animation: scrollBounce 2s ease-in-out infinite;
+        }
+
+        .scroll-indicator i {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        @keyframes scrollBounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* Modal para portfolio */
+        .portfolio-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(5px);
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        .modal-content {
+            position: relative;
+            margin: auto;
+            padding: 20px;
+            width: 90%;
+            height: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            color: #f1f1f1;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10000;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover,
+        .close-modal:focus {
+            color: #e67e22;
+            text-decoration: none;
+        }
+
+        .modal-image {
+            max-width: 100%;
+            max-height: 80%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-title {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 20px;
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Hacer las imágenes del portfolio clickeables */
+        .portfolio-item {
+            cursor: pointer;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 40px 20px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.03)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            pointer-events: none;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-section {
+            padding: 15px;
+        }
+
+        .footer-section h3 {
+            color: #e67e22;
+            font-size: 1rem;
+            font-weight: 400;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #e67e22, #f39c12);
+            border-radius: 2px;
+        }
+
+        .footer-section p {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.5;
+            margin-bottom: 12px;
+            font-size: 0.8rem;
+            font-weight: 100;
+        }
+
+        .contact-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-info:hover {
+            transform: translateX(10px);
+        }
+
+        .contact-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(45deg, #e67e22, #f39c12);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .contact-icon i {
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .contact-text {
+            flex: 1;
+        }
+
+        .contact-text strong {
+            color: #e67e22;
+            font-weight: 600;
+        }
+
+        .contact-text span {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.75rem;
+            font-weight: 100;
+        }
+
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .schedule-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 3px solid #e67e22;
+            transition: all 0.3s ease;
+        }
+
+        .schedule-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .schedule-item strong {
+            color: #e67e22;
+            display: block;
+            margin-bottom: 4px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            font-weight: 400;
+        }
+
+        .schedule-item span {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.75rem;
+            font-weight: 100;
+        }
+
+        .footer-bottom {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.7rem;
+            font-weight: 100;
+        }
+
+        .footer-logo {
+            max-width: 80px;
+            margin-bottom: 15px;
+            filter: brightness(0) invert(1);
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cta-buttons {
+                justify-content: center;
+            }
+
+            .btn-primary {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+                font-size: 0.9rem;
+                padding: 1rem 2rem;
+            }
+
+            .timeline-line {
+                left: 20px;
+            }
+
+            .timeline-item.left,
+            .timeline-item.right {
+                padding-left: 50px;
+                padding-right: 15px;
+            }
+
+            .timeline-item.left .timeline-icon,
+            .timeline-item.right .timeline-icon {
+                left: -35px;
+                right: auto;
+            }
+
+            .timeline-item.left .timeline-content::before,
+            .timeline-item.right .timeline-content::before {
+                left: -20px;
+                right: auto;
+                border-right-color: white;
+                border-left-color: transparent;
+            }
+
+            .timeline-content {
+                padding: 15px;
+            }
+
+            .timeline-icon {
+                width: 30px;
+                height: 30px;
+                font-size: 0.8rem;
+            }
+
+            .timeline-text h3 {
+                font-size: 0.9rem;
+            }
+
+            .timeline-text p {
+                font-size: 0.8rem;
+            }
+
+            .marvex-info-section {
+                padding: 60px 20px;
+            }
+
+            .marvex-info-title {
+                font-size: clamp(1.5rem, 3vw, 2.5rem);
+                margin-bottom: 30px;
+            }
+
+            .marvex-description {
+                font-size: 1rem;
+                line-height: 1.6;
+                padding: 0 15px;
+                text-align: left;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+                padding: 0 20px;
+            }
+
+            .benefit-card {
+                padding: 30px 25px;
+            }
+
+            .benefit-icon {
+                width: 70px;
+                height: 70px;
+                margin-bottom: 20px;
+            }
+
+            .benefit-icon i {
+                font-size: 1.8rem;
+            }
+
+            .benefit-card h3 {
+                font-size: 1.2rem;
+                margin-bottom: 15px;
+            }
+
+            .benefit-card p {
+                font-size: 0.95rem;
+            }
+
+            /* Estilos responsivos para el carrusel */
+            .carousel-section {
+                padding: 40px 10px;
+            }
+
+            .title-spaces-container {
+                flex-direction: column;
+                gap: 15px;
+                margin-bottom: 20px;
+                align-items: center;
+            }
+
+            .title-section {
+                text-align: center;
+                max-width: 100%;
+                width: 100%;
+            }
+
+            .carousel-title {
+                font-size: 1.5rem;
+                margin-bottom: 5px;
+                text-align: center;
+            }
+
+            .marvex-subtitle {
+                font-size: 2.8rem;
+                text-align: center;
+                margin-bottom: 5px;
+            }
+
+            .porcelanato-subtitle {
+                font-size: 1.8rem;
+                text-align: center;
+                margin-bottom: 0;
+            }
+
+            .spaces-transition-container {
+                display: none;
+            }
+
+            .space-item {
+                padding: 15px;
+                margin: 0;
+                min-width: 130px;
+                text-align: center;
+                border-radius: 12px;
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            .space-icon {
+                width: 55px;
+                height: 55px;
+                font-size: 1.3rem;
+                margin-bottom: 8px;
+                margin-left: auto;
+                margin-right: auto;
+                background: linear-gradient(135deg, #e67e22, #f39c12);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                box-shadow: 0 3px 10px rgba(230, 126, 34, 0.3);
+            }
+
+            .space-content h3 {
+                font-size: 1rem;
+                margin-bottom: 5px;
+                text-align: center;
+                font-weight: 600;
+                color: #2c3e50;
+            }
+
+            .space-content p {
+                font-size: 0.85rem;
+                line-height: 1.3;
+                text-align: center;
+                color: #666;
+            }
+
+            .carousel-container {
+                padding: 20px 0;
+            }
+
+            .carousel-track {
+                gap: 20px;
+            }
+
+            .carousel-item {
+                width: 320px;
+                height: 280px;
+                border-radius: 15px;
+            }
+
+            .carousel-image {
+                height: 160px;
+            }
+
+            .carousel-content {
+                padding: 12px;
+                height: 120px;
+                overflow: visible;
+            }
+
+            .carousel-content h3 {
+                font-size: 1rem;
+                margin-bottom: 0;
+                line-height: 1.2;
+                display: inline;
+            }
+
+            .carousel-content p {
+                font-size: 0.85rem;
+                line-height: 1.3;
+                margin-top: 0;
+                margin-bottom: 0;
+                display: inline;
+            }
+
+            .carousel-nav {
+                margin-top: 20px;
+            }
+
+            .carousel-dots {
+                gap: 8px;
+            }
+
+            .carousel-dot {
+                width: 8px;
+                height: 8px;
+            }
+        }
+
+        /* Estilos para móviles muy pequeños */
+        @media (max-width: 480px) {
+            .carousel-section {
+                padding: 30px 5px;
+            }
+
+            .title-spaces-container {
+                gap: 12px;
+                margin-bottom: 15px;
+                align-items: center;
+            }
+
+            .carousel-title {
+                font-size: 1.3rem;
+                text-align: center;
+                margin-bottom: 3px;
+            }
+
+            .marvex-subtitle {
+                font-size: 2.2rem;
+                text-align: center;
+                margin-bottom: 3px;
+            }
+
+            .porcelanato-subtitle {
+                font-size: 1.4rem;
+                text-align: center;
+                margin-bottom: 0;
+            }
+
+            .spaces-transition-container {
+                justify-content: center;
+                gap: 8px;
+                padding: 3px;
+            }
+
+            .space-item {
+                padding: 12px;
+                margin: 0;
+                min-width: 110px;
+                text-align: center;
+                border-radius: 10px;
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            .space-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
+                margin-bottom: 6px;
+                margin-left: auto;
+                margin-right: auto;
+                background: linear-gradient(135deg, #e67e22, #f39c12);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                box-shadow: 0 2px 8px rgba(230, 126, 34, 0.3);
+            }
+
+            .space-content h3 {
+                font-size: 0.9rem;
+                text-align: center;
+                font-weight: 600;
+                color: #2c3e50;
+                margin-bottom: 3px;
+            }
+
+            .space-content p {
+                font-size: 0.75rem;
+                text-align: center;
+                color: #666;
+                line-height: 1.2;
+            }
+
+            .carousel-item {
+                width: 280px;
+                height: 250px;
+                border-radius: 12px;
+            }
+
+            .carousel-image {
+                height: 140px;
+            }
+
+            .carousel-content {
+                padding: 10px;
+                height: 110px;
+                overflow: visible;
+            }
+
+            .carousel-content h3 {
+                font-size: 0.95rem;
+                margin-bottom: 0;
+                display: inline;
+            }
+
+            .carousel-content p {
+                font-size: 0.8rem;
+                line-height: 1.3;
+                margin-top: 0;
+                margin-bottom: 0;
+                display: inline;
+            }
+
+            .carousel-track {
+                gap: 15px;
+            }
+
+            .carousel-nav {
+                margin-top: 15px;
+            }
+
+            .carousel-dots {
+                gap: 6px;
+            }
+
+            .carousel-dot {
+                width: 6px;
+                height: 6px;
+            }
+
+            .title-spaces-container {
+                flex-direction: column;
+                gap: 30px;
+                margin-bottom: 20px;
+                padding: 0 20px;
+                margin-left: 20px;
+                justify-content: flex-start;
+            }
+
+            .title-section {
+                align-items: center;
+                max-width: 100%;
+            }
+
+            .carousel-title {
+                text-align: center;
+                max-width: 100%;
+                justify-content: center;
+            }
+
+            .marvex-subtitle,
+            .porcelanato-subtitle {
+                text-align: center;
+            }
+
+            .title-section {
+                max-width: 100%;
+            }
+
+            .carousel-title {
+                text-align: center;
+                max-width: 100%;
+            }
+
+            .marvex-subtitle {
+                font-size: clamp(1rem, 2vw, 1.5rem);
+                margin-top: 10px;
+            }
+
+            .porcelanato-subtitle {
+                font-size: clamp(1rem, 2vw, 1.5rem);
+                margin-top: 5px;
+            }
+
+            .spaces-transition-container {
+                height: 250px;
+                max-width: 350px;
+            }
+
+            .space-item {
+                gap: 20px;
+            }
+
+            .space-icon {
+                width: 90px;
+                height: 90px;
+            }
+
+            .space-icon i {
+                font-size: 2.5rem;
+            }
+
+            .space-item h3 {
+                font-size: 1.5rem;
+            }
+
+            .space-item p {
+                font-size: 1rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .schedule-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer {
+                padding: 30px 20px 15px;
+            }
+
+            .portfolio-section {
+                padding: 60px 20px;
+            }
+
+            .portfolio-grid {
+                gap: 0;
+                padding: 15px 0;
+            }
+
+            .portfolio-row {
+                gap: 0;
+            }
+
+            .portfolio-item {
+                width: 140px;
+            }
+
+            .portfolio-image {
+                height: 250px;
+                object-fit: contain;
+            }
+
+            .portfolio-overlay {
+                padding: 25px 20px 20px;
+            }
+
+            .portfolio-overlay h3 {
+                font-size: 1.2rem;
+            }
+
+            .portfolio-overlay p {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Efectos de scroll */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+        <!-- Cursor personalizado -->
+    <div class="custom-cursor"></div>
+    <div class="cursor-trail"></div>
+
+    <!-- Logo flotante interactivo -->
+    <div class="floating-logo hidden" id="floatingLogo">
+        <div class="logo-mask">
+            <img src="/src/assets/MARVEX.png" alt="Logo Marvex">
+            <div class="logo-particles" id="logoParticles"></div>
+        </div>
+    </div>
+
+    <!-- Loader dramático -->
+    <div class="loader" id="loader">
+        <img src="/src/assets/MARVEX.png" alt="Logo Marvex" class="loader-logo">
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-background"></div>
+        <div class="hero-overlay"></div>
+        
+        <!-- Partículas -->
+        <div class="particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+
+        <div class="hero-content">
+            <div class="marvex-brand">
+                <span class="marvex-text" id="marvexText">MARVEX</span>
+            </div>
+            <h1 class="hero-title">TRANSFORMA TU REALIDAD</h1>
+                            <p class="hero-subtitle">Cada vez que llegas, que tu hogar te dé la bienvenida perfecta</p>
+            
+            <div class="cta-buttons">
+                <a href="#cotizacion" class="btn-primary">
+                    <i class="fas fa-calculator"></i>
+                    Cotización Gratuita
+                </a>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- Sección Marvex Porcelanato & Revestimientos -->
+    <section class="marvex-info-section">
+        <div class="container">
+            <div class="marvex-info-content">
+                <h2 class="marvex-info-title">Porcelanato & Revestimientos</h2>
+                <div class="marvex-info-text">
+                    <p class="marvex-description">
+                        Marvex importado por <strong>FERRETERÍA EL CARMEN</strong>, ofrece una combinación de elegancia, resistencia y tecnología avanzada para transformar cualquier espacio. Con un acabado pulido de alta calidad, estas piezas están diseñadas para brindar un aspecto sofisticado y duradero.
+                    </p>
+                    <p class="marvex-description">
+                        Gracias a su tecnología Nano, Marvex asegura superficies más resistentes a las manchas y con mayor facilidad de limpieza, manteniendo siempre un brillo impecable. Su resistencia al desgaste y a la absorción de agua lo convierte en la opción ideal tanto para interiores residenciales como para proyectos arquitectónicos exigentes.
+                    </p>
+                    <p class="marvex-description">
+                        Con Marvex Porcelanato & Revestimientos obtienes más que un revestimiento: una solución de calidad 100% garantizada, diseñada para crear ambientes modernos, resistentes y con un estilo atemporal.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Portafolio -->
+    <section class="portfolio-section">
+        <div class="container">
+            <div class="portfolio-header">
+                <h2 class="portfolio-title">Nuestro Portafolio</h2>
+                <p class="portfolio-subtitle">Cada vez que llegas, que tu hogar te dé la bienvenida perfecta</p>
+            </div>
+            
+            <div class="portfolio-grid">
+                <!-- Primera fila -->
+                <div class="portfolio-row">
+                    <div class="portfolio-item">
+                        <img src="/src/assets/portafolio/IVORY PLAIN.png" alt="Ivory Plain" class="portfolio-image">
+                        <div class="portfolio-text">IVORY PLAIN</div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="/src/assets/portafolio/DYNA BEIGE.png" alt="Dyna Beige" class="portfolio-image">
+                        <div class="portfolio-text">DYNA BEIGE</div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="/src/assets/portafolio/FIESTA.png" alt="Fiesta" class="portfolio-image">
+                        <div class="portfolio-text">FIESTA</div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="/src/assets/portafolio/STRIPE.png" alt="Stripe" class="portfolio-image">
+                        <div class="portfolio-text">STRIPE</div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="/src/assets/portafolio/IVORY PLAIN.png" alt="Ivory Plain" class="portfolio-image">
+                        <div class="portfolio-text">IVORY PLAIN</div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="/src/assets/portafolio/DYNA BEIGE.png" alt="Dyna Beige" class="portfolio-image">
+                        <div class="portfolio-text">DYNA BEIGE</div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="/src/assets/portafolio/FIESTA.png" alt="Fiesta" class="portfolio-image">
+                        <div class="portfolio-text">FIESTA</div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="/src/assets/portafolio/STRIPE.png" alt="Stripe" class="portfolio-image">
+                        <div class="portfolio-text">STRIPE</div>
+                    </div>
+                    <!-- Clones para animación infinita -->
+                    <div class="portfolio-item">
+                        <img src="/src/assets/portafolio/IVORY PLAIN.png" alt="Ivory Plain" class="portfolio-image">
+                        <div class="portfolio-text">IVORY PLAIN</div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="/src/assets/portafolio/DYNA BEIGE.png" alt="Dyna Beige" class="portfolio-image">
+                        <div class="portfolio-text">DYNA BEIGE</div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="/src/assets/portafolio/FIESTA.png" alt="Fiesta" class="portfolio-image">
+                        <div class="portfolio-text">FIESTA</div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="/src/assets/portafolio/STRIPE.png" alt="Stripe" class="portfolio-image">
+                        <div class="portfolio-text">STRIPE</div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="/src/assets/portafolio/IVORY PLAIN.png" alt="Ivory Plain" class="portfolio-image">
+                        <div class="portfolio-text">IVORY PLAIN</div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="/src/assets/portafolio/DYNA BEIGE.png" alt="Dyna Beige" class="portfolio-image">
+                        <div class="portfolio-text">DYNA BEIGE</div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="/src/assets/portafolio/FIESTA.png" alt="Fiesta" class="portfolio-image">
+                        <div class="portfolio-text">FIESTA</div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="/src/assets/portafolio/STRIPE.png" alt="Stripe" class="portfolio-image">
+                        <div class="portfolio-text">STRIPE</div>
+                    </div>
+                </div>
+
+                <!-- Segunda fila -->
+                <div class="portfolio-row">
+                    <div class="portfolio-item">
+                        <img src="/src/assets/portafolio/DYNA BEIGE.png" alt="Dyna Beige" class="portfolio-image">
+                        <div class="portfolio-text">DYNA BEIGE</div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="/src/assets/portafolio/FIESTA.png" alt="Fiesta" class="portfolio-image">
+                        <div class="portfolio-text">FIESTA</div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="/src/assets/portafolio/STRIPE.png" alt="Stripe" class="portfolio-image">
+                        <div class="portfolio-text">STRIPE</div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="/src/assets/portafolio/IVORY PLAIN.png" alt="Ivory Plain" class="portfolio-image">
+                        <div class="portfolio-text">IVORY PLAIN</div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="/src/assets/portafolio/DYNA BEIGE.png" alt="Dyna Beige" class="portfolio-image">
+                        <div class="portfolio-text">DYNA BEIGE</div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="/src/assets/portafolio/FIESTA.png" alt="Fiesta" class="portfolio-image">
+                        <div class="portfolio-text">FIESTA</div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="/src/assets/portafolio/STRIPE.png" alt="Stripe" class="portfolio-image">
+                        <div class="portfolio-text">STRIPE</div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="/src/assets/portafolio/IVORY PLAIN.png" alt="Ivory Plain" class="portfolio-image">
+                        <div class="portfolio-text">IVORY PLAIN</div>
+                    </div>
+                    <!-- Clones para animación infinita -->
+                    <div class="portfolio-item">
+                        <img src="/src/assets/portafolio/DYNA BEIGE.png" alt="Dyna Beige" class="portfolio-image">
+                        <div class="portfolio-text">DYNA BEIGE</div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="/src/assets/portafolio/FIESTA.png" alt="Fiesta" class="portfolio-image">
+                        <div class="portfolio-text">FIESTA</div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="/src/assets/portafolio/STRIPE.png" alt="Stripe" class="portfolio-image">
+                        <div class="portfolio-text">STRIPE</div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="/src/assets/portafolio/IVORY PLAIN.png" alt="Ivory Plain" class="portfolio-image">
+                        <div class="portfolio-text">IVORY PLAIN</div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="/src/assets/portafolio/DYNA BEIGE.png" alt="Dyna Beige" class="portfolio-image">
+                        <div class="portfolio-text">DYNA BEIGE</div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="/src/assets/portafolio/FIESTA.png" alt="Fiesta" class="portfolio-image">
+                        <div class="portfolio-text">FIESTA</div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="/src/assets/portafolio/STRIPE.png" alt="Stripe" class="portfolio-image">
+                        <div class="portfolio-text">STRIPE</div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="/src/assets/portafolio/IVORY PLAIN.png" alt="Ivory Plain" class="portfolio-image">
+                        <div class="portfolio-text">IVORY PLAIN</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal para mostrar imagen en pantalla completa -->
+        <div id="portfolioModal" class="portfolio-modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <img id="modalImage" src="" alt="Imagen ampliada" class="modal-image">
+                <div id="modalTitle" class="modal-title"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Carrusel con Efecto de Profundidad -->
+    <section class="carousel-section">
+        <div class="title-spaces-container">
+            <div class="title-section">
+                <h2 class="carousel-title">Transforma Cualquier Espacio con</h2>
+                <h3 class="marvex-subtitle">Marvex</h3>
+                <h3 class="porcelanato-subtitle">Porcelanato</h3>
+            </div>
+            
+            <div class="spaces-transition-container">
+                <div class="space-item active" data-index="0">
+                    <div class="space-icon">
+                        <i class="fas fa-bath"></i>
+                    </div>
+                    <div class="space-content">
+                        <h3>Baños</h3>
+                        <p>Elegancia y durabilidad para el espacio más íntimo de tu hogar</p>
+                    </div>
+                </div>
+                
+                <div class="space-item" data-index="1">
+                    <div class="space-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <div class="space-content">
+                        <h3>Cocinas</h3>
+                        <p>Funcionalidad y estilo para el corazón de tu casa</p>
+                    </div>
+                </div>
+                
+                <div class="space-item" data-index="2">
+                    <div class="space-icon">
+                        <i class="fas fa-couch"></i>
+                    </div>
+                    <div class="space-content">
+                        <h3>Salas de Estar</h3>
+                        <p>Confort y sofisticación para tus momentos de relax</p>
+                    </div>
+                </div>
+                
+                <div class="space-item" data-index="3">
+                    <div class="space-icon">
+                        <i class="fas fa-bed"></i>
+                    </div>
+                    <div class="space-content">
+                        <h3>Dormitorios</h3>
+                        <p>Tranquilidad y elegancia para tu descanso</p>
+                    </div>
+                </div>
+                
+                <div class="space-item" data-index="4">
+                    <div class="space-icon">
+                        <i class="fas fa-umbrella-beach"></i>
+                    </div>
+                    <div class="space-content">
+                        <h3>Terrazas y Balcones</h3>
+                        <p>Resistencia y belleza para espacios exteriores</p>
+                    </div>
+                </div>
+                
+                <div class="space-item" data-index="5">
+                    <div class="space-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="space-content">
+                        <h3>Oficinas Comerciales</h3>
+                        <p>Profesionalismo y modernidad para tu negocio</p>
+                    </div>
+                </div>
+                
+                <div class="space-item" data-index="6">
+                    <div class="space-icon">
+                        <i class="fas fa-coffee"></i>
+                    </div>
+                    <div class="space-content">
+                        <h3>Restaurantes y Cafeterías</h3>
+                        <p>Ambiente acogedor y fácil mantenimiento</p>
+                    </div>
+                </div>
+                
+                <div class="space-item" data-index="7">
+                    <div class="space-icon">
+                        <i class="fas fa-hospital"></i>
+                    </div>
+                    <div class="space-content">
+                        <h3>Hospitales y Clínicas</h3>
+                        <p>Higiene y durabilidad para entornos médicos</p>
+                    </div>
+                </div>
+                
+                <div class="space-item" data-index="8">
+                    <div class="space-icon">
+                        <i class="fas fa-shopping-mall"></i>
+                    </div>
+                    <div class="space-content">
+                        <h3>Centros Comerciales</h3>
+                        <p>Elegancia y resistencia para alto tráfico</p>
+                    </div>
+                </div>
+                
+                <div class="space-item" data-index="9">
+                    <div class="space-icon">
+                        <i class="fas fa-swimming-pool"></i>
+                    </div>
+                    <div class="space-content">
+                        <h3>Piscinas</h3>
+                        <p>Seguridad y belleza para áreas acuáticas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        
+        <div class="carousel-container">
+                    <div class="carousel-track" id="carouselTrack">
+            <div class="carousel-item">
+                <img src="/src/assets/porcelanato/i1.jpg" alt="Alta Resistencia" class="carousel-image">
+                <div class="carousel-content">
+                    <h3>Alta Resistencia y Durabilidad</h3>
+                    <p>Extremadamente resistente al desgaste e impactos. Ideal para áreas de alto tránsito con vida útil superior a 50 años.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="/src/assets/porcelanato/i2.jpg" alt="Absorción Mínima" class="carousel-image">
+                <div class="carousel-content">
+                    <h3>Absorción Mínima de Agua</h3>
+                    <p>Absorción de agua inferior al 0.5%. Prácticamente impermeable, previene manchas, hongos y bacterias.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="/src/assets/porcelanato/i3.jpg" alt="Fácil Limpieza" class="carousel-image">
+                <div class="carousel-content">
+                    <h3>Facilidad de Limpieza</h3>
+                    <p>Superficie no porosa que permite limpieza sencilla. Resiste químicos y no retiene olores ni suciedad.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="/src/assets/porcelanato/i4.jpg" alt="Versatilidad" class="carousel-image">
+                <div class="carousel-content">
+                    <h3>Versatilidad Estética</h3>
+                    <p>Amplia gama de diseños y texturas que imitan materiales naturales sin sus inconvenientes.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="/src/assets/porcelanato/i6.jpg" alt="Resistencia Extrema" class="carousel-image">
+                <div class="carousel-content">
+                    <h3>Resistencia a Condiciones Extremas</h3>
+                    <p>Soporta cambios de temperatura, es antideslizante y resistente a rayos UV. Ideal para interiores y exteriores.</p>
+                </div>
+            </div>
+        </div>
+        </div>
+        
+        <!-- Navegación -->
+        <div class="carousel-nav">
+            <button class="carousel-btn" id="prevBtn">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <div class="carousel-dots">
+                <div class="carousel-dot active" data-index="0"></div>
+                <div class="carousel-dot" data-index="1"></div>
+                <div class="carousel-dot" data-index="2"></div>
+                <div class="carousel-dot" data-index="3"></div>
+                <div class="carousel-dot" data-index="4"></div>
+            </div>
+            <button class="carousel-btn" id="nextBtn">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </section>
+
+
+
+    <!-- Sección de Beneficios - Línea de Tiempo -->
+    <section class="benefits-section">
+        <div class="container">
+            <h2 class="benefits-title">Beneficios Principales</h2>
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+                
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-icon">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <div class="timeline-text">
+                            <h3>Tecnología de Ultra-Baja Absorción MARVEX</h3>
+                            <p>Nuestros porcelanatos MARVEX garantizan una absorción de agua inferior al 0.3% (por debajo del estándar requerido de 0.5%), proporcionando máxima impermeabilidad y protección duradera contra la humedad en todos nuestros diseños.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="timeline-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="timeline-text">
+                            <h3>Sistema de Resistencia Mecánica MARVEX Pro</h3>
+                            <p>Cada pieza MARVEX supera los 1500 N de carga de rotura, excediendo los estándares internacionales mínimos. Esta tecnología exclusiva asegura que tus espacios resistan el uso más exigente día tras día.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-icon">
+                            <i class="fas fa-gem"></i>
+                        </div>
+                        <div class="timeline-text">
+                            <h3>Clasificación de Desgaste Superior MARVEX</h3>
+                            <p>Todos nuestros porcelanatos están certificados PEI IV o PEI V, garantizando resistencia excepcional al tráfico intenso. Con MARVEX, inviertes en pisos que mantienen su belleza original por décadas.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="timeline-icon">
+                            <i class="fas fa-ruler-combined"></i>
+                        </div>
+                        <div class="timeline-text">
+                            <h3>Precisión Dimensional MARVEX</h3>
+                            <p>Fabricamos con tolerancias de ±0.4% (superior al estándar de ±0.6%), asegurando juntas perfectas y una instalación impecable. La tecnología MARVEX elimina irregularidades para resultados profesionales garantizados.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-icon">
+                            <i class="fas fa-thermometer-half"></i>
+                        </div>
+                        <div class="timeline-text">
+                            <h3>Resistencia Térmica Certificada MARVEX</h3>
+                            <p>Nuestros porcelanatos han superado rigurosas pruebas de choque térmico, manteniendo integridad estructural ante cambios extremos de temperatura. MARVEX es sinónimo de durabilidad en cualquier clima o aplicación.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <!-- Sucursal Principal -->
+            <div class="footer-section">
+                <h3>Sucursal Principal</h3>
+                <div class="contact-info">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-text">
+                        <strong>Dirección:</strong><br>
+                        <span>Calle 21 de agosto, barrio el carmen, 4ta avenida N.O, Siguatepeque, Honduras</span>
+                    </div>
+                </div>
+                <div class="contact-info">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contact-text">
+                        <strong>Teléfonos:</strong><br>
+                        <span>+ (504) 2773-2429</span><br>
+                        <span>+ (504) 9802-5990</span><br>
+                        <span>+ (504) 3283-4584</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sucursal San Juan -->
+            <div class="footer-section">
+                <h3>Sucursal San Juan</h3>
+                <div class="contact-info">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-text">
+                        <strong>Dirección:</strong><br>
+                        <span>1 cuadra al oeste del parquecito San Juan, Siguatepeque, Honduras</span>
+                    </div>
+                </div>
+                <div class="contact-info">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contact-text">
+                        <strong>Teléfono:</strong><br>
+                        <span>+ (504) 2773-2521</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sucursal Jesús de Otoro -->
+            <div class="footer-section">
+                <h3>Sucursal Jesús de Otoro</h3>
+                <div class="contact-info">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-text">
+                        <strong>Dirección:</strong><br>
+                        <span>Barrio Santa Cruz a una cuadra de plaza venus, Jesús de Otoro, Honduras</span>
+                    </div>
+                </div>
+                <div class="contact-info">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contact-text">
+                        <strong>Teléfono:</strong><br>
+                        <span>+ (504) 8993-0563</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Horarios -->
+            <div class="footer-section">
+                <h3>Horarios de Atención</h3>
+                <div class="schedule-grid">
+                    <div class="schedule-item">
+                        <strong>Lunes a Viernes</strong>
+                        <span>07:30 AM - 06:00 PM</span>
+                    </div>
+                    <div class="schedule-item">
+                        <strong>Sábados</strong>
+                        <span>07:30 AM - 04:00 PM</span>
+                    </div>
+                </div>
+                <div class="contact-info" style="margin-top: 15px;">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="contact-text">
+                        <strong>Domingos:</strong><br>
+                        <span>Cerrado</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <img src="/src/assets/MARVEX.png" alt="Logo Marvex" class="footer-logo">
+            <p>&copy; 2024 Marvex - Porcelanato Premium. Todos los derechos reservados.</p>
+            <p>Transformando espacios con elegancia y calidad desde Honduras</p>
+        </div>
+    </footer>
+
+    <script>
+        // Cursor personalizado
+        const cursor = document.querySelector('.custom-cursor');
+        const cursorTrail = document.querySelector('.cursor-trail');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            setTimeout(() => {
+                cursorTrail.style.left = e.clientX + 'px';
+                cursorTrail.style.top = e.clientY + 'px';
+            }, 100);
+        });
+
+        // Loader
+        window.addEventListener('load', function() {
+            const loader = document.getElementById('loader');
+            setTimeout(() => {
+                loader.classList.add('hidden');
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                    // Mostrar el logo flotante después del loader
+                    initFloatingLogo();
+                }, 1000);
+            }, 3000);
+        });
+
+        // Animación del logo flotante con GSAP
+        function initFloatingLogo() {
+            const floatingLogo = document.getElementById('floatingLogo');
+            const logoMask = floatingLogo.querySelector('.logo-mask');
+            const logoImg = floatingLogo.querySelector('img');
+            const logoParticles = document.getElementById('logoParticles');
+            
+            // Crear partículas
+            function createParticles() {
+                for (let i = 0; i < 8; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'logo-particle';
+                    particle.style.setProperty('--x', `${(Math.random() - 0.5) * 100}px`);
+                    particle.style.setProperty('--y', `${(Math.random() - 0.5) * 100}px`);
+                    particle.style.animationDelay = `${Math.random() * 3}s`;
+                    logoParticles.appendChild(particle);
+                }
+            }
+            
+            createParticles();
+            
+            // Mostrar el logo con animación GSAP
+            gsap.set(floatingLogo, { opacity: 0, scale: 0.5 });
+            gsap.to(floatingLogo, {
+                opacity: 1,
+                scale: 1,
+                duration: 1,
+                ease: "back.out(1.7)",
+                onComplete: () => {
+                    floatingLogo.classList.remove('hidden');
+                    floatingLogo.classList.add('visible');
+                }
+            });
+
+            // Variables para el seguimiento del mouse
+            let mouseX = 0;
+            let mouseY = 0;
+            let logoX = 0;
+            let logoY = 0;
+            let isMouseMoving = false;
+            let mouseTimer = null;
+            let lastMouseX = 0;
+            let lastMouseY = 0;
+            let mouseVelocity = 0;
+
+            // Seguimiento del mouse
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                
+                // Calcular velocidad del mouse
+                const deltaX = mouseX - lastMouseX;
+                const deltaY = mouseY - lastMouseY;
+                mouseVelocity = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+                
+                lastMouseX = mouseX;
+                lastMouseY = mouseY;
+                
+                isMouseMoving = true;
+                
+                // Mostrar el logo cuando el mouse se mueve
+                if (floatingLogo.classList.contains('hidden')) {
+                    gsap.to(floatingLogo, {
+                        opacity: 1,
+                        scale: 1,
+                        duration: 0.5,
+                        ease: "power2.out"
+                    });
+                    floatingLogo.classList.remove('hidden');
+                    floatingLogo.classList.add('visible');
+                }
+
+                // Resetear el timer
+                if (mouseTimer) clearTimeout(mouseTimer);
+                mouseTimer = setTimeout(() => {
+                    isMouseMoving = false;
+                    // Ocultar el logo después de 2 segundos sin movimiento
+                    gsap.to(floatingLogo, {
+                        opacity: 0,
+                        scale: 0.8,
+                        duration: 0.8,
+                        ease: "power2.in",
+                        onComplete: () => {
+                            floatingLogo.classList.add('hidden');
+                            floatingLogo.classList.remove('visible');
+                        }
+                    });
+                }, 2000);
+
+                // Animar la máscara del logo basado en la velocidad
+                const scale = Math.min(1.2 + (mouseVelocity * 0.01), 1.5);
+                gsap.to(logoMask, {
+                    scale: scale,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+
+                // Efecto de rotación suave basado en la dirección del mouse
+                const rotation = (deltaX * 0.5) + (deltaY * 0.3);
+                gsap.to(logoImg, {
+                    rotation: rotation,
+                    duration: 0.5,
+                    ease: "power2.out"
+                });
+
+                // Efecto de brillo en la máscara
+                gsap.to(logoMask, {
+                    boxShadow: `0 0 ${30 + mouseVelocity * 0.5}px rgba(230, 126, 34, 0.5)`,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+
+            // Animación suave del logo siguiendo el cursor
+            function animateLogo() {
+                // Interpolación suave para el seguimiento
+                logoX += (mouseX - logoX) * 0.1;
+                logoY += (mouseY - logoY) * 0.1;
+
+                gsap.set(floatingLogo, {
+                    x: logoX - 40, // Centrar el logo en el cursor
+                    y: logoY - 40
+                });
+
+                // Efecto de escala basado en la velocidad del mouse
+                if (isMouseMoving) {
+                    const scale = Math.min(1.1 + (mouseVelocity * 0.005), 1.3);
+                    gsap.to(logoMask, {
+                        scale: scale,
+                        duration: 0.2,
+                        ease: "power2.out"
+                    });
+                } else {
+                    gsap.to(logoMask, {
+                        scale: 1,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                }
+
+                requestAnimationFrame(animateLogo);
+            }
+
+            animateLogo();
+
+            // Efectos adicionales al hacer hover en elementos interactivos
+            document.querySelectorAll('a, button, .carousel-item').forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    gsap.to(logoMask, {
+                        scale: 1.4,
+                        duration: 0.3,
+                        ease: "back.out(1.7)"
+                    });
+                    
+                    gsap.to(logoImg, {
+                        rotation: 20,
+                        duration: 0.4,
+                        ease: "power2.out"
+                    });
+
+                    // Efecto de partículas intensificado
+                    gsap.to(logoParticles, {
+                        scale: 1.5,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                });
+
+                element.addEventListener('mouseleave', () => {
+                    gsap.to(logoMask, {
+                        scale: 1,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                    
+                    gsap.to(logoImg, {
+                        rotation: 0,
+                        duration: 0.4,
+                        ease: "power2.out"
+                    });
+
+                    gsap.to(logoParticles, {
+                        scale: 1,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                });
+            });
+
+            // Efecto de pulso cuando el logo aparece
+            gsap.to(logoMask, {
+                scale: 1.2,
+                duration: 0.5,
+                ease: "power2.inOut",
+                yoyo: true,
+                repeat: 1
+            });
+        }
+
+        // Animaciones del footer
+        function initFooterAnimations() {
+            const footerSections = document.querySelectorAll('.footer-section');
+            const contactInfos = document.querySelectorAll('.contact-info');
+            const scheduleItems = document.querySelectorAll('.schedule-item');
+
+            // Animación de entrada para las secciones del footer
+            gsap.fromTo(footerSections, 
+                { 
+                    opacity: 0, 
+                    y: 50 
+                },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    stagger: 0.2,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: ".footer",
+                        start: "top 80%",
+                        end: "bottom 20%",
+                        toggleActions: "play none none reverse"
+                    }
+                }
+            );
+
+            // Efectos hover para contact-info
+            contactInfos.forEach(info => {
+                info.addEventListener('mouseenter', () => {
+                    gsap.to(info, {
+                        x: 10,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                    
+                    const icon = info.querySelector('.contact-icon');
+                    gsap.to(icon, {
+                        scale: 1.1,
+                        rotation: 5,
+                        duration: 0.3,
+                        ease: "back.out(1.7)"
+                    });
+                });
+
+                info.addEventListener('mouseleave', () => {
+                    gsap.to(info, {
+                        x: 0,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                    
+                    const icon = info.querySelector('.contact-icon');
+                    gsap.to(icon, {
+                        scale: 1,
+                        rotation: 0,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                });
+            });
+
+            // Efectos hover para schedule-items
+            scheduleItems.forEach(item => {
+                item.addEventListener('mouseenter', () => {
+                    gsap.to(item, {
+                        y: -5,
+                        scale: 1.02,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                });
+
+                item.addEventListener('mouseleave', () => {
+                    gsap.to(item, {
+                        y: 0,
+                        scale: 1,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                });
+            });
+        }
+
+        // Inicializar animaciones del footer cuando se carga la página
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                initFooterAnimations();
+            }, 4000); // Después del loader
+        });
+
+        // Scroll reveal
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Efectos de hover en botones
+        document.querySelectorAll('.btn-primary, .btn-secondary').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                cursor.style.transform = 'scale(2)';
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                cursor.style.transform = 'scale(1)';
+            });
+        });
+
+        // Carrusel infinito con clones y transición suave
+        const carouselTrack = document.getElementById('carouselTrack');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const dots = document.querySelectorAll('.carousel-dot');
+        const items = carouselTrack.querySelectorAll('.carousel-item');
+        let currentIndex = 0;
+        const totalItems = items.length;
+        let autoInterval = null;
+        let isTransitioning = false;
+
+        // Crear clones para el efecto infinito
+        function createInfiniteCarousel() {
+            // Clonar elementos al final
+            items.forEach(item => {
+                const clone = item.cloneNode(true);
+                carouselTrack.appendChild(clone);
+            });
+            // Clonar elementos al inicio
+            items.forEach(item => {
+                const clone = item.cloneNode(true);
+                carouselTrack.insertBefore(clone, carouselTrack.firstChild);
+            });
+            // Ajustar el índice inicial para considerar los clones
+            currentIndex = totalItems;
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            const allItems = carouselTrack.querySelectorAll('.carousel-item');
+            allItems.forEach((item, idx) => {
+                item.classList.remove('active', 'left', 'right', 'far-left', 'far-right');
+                if (idx === currentIndex) {
+                    item.classList.add('active');
+                } else if (idx === currentIndex - 1) {
+                    item.classList.add('left');
+                } else if (idx === currentIndex + 1) {
+                    item.classList.add('right');
+                } else if (idx === currentIndex - 2) {
+                    item.classList.add('far-left');
+                } else if (idx === currentIndex + 2) {
+                    item.classList.add('far-right');
+                }
+            });
+            // Calcular la posición del carrusel para centrar el elemento activo
+            const gap = window.innerWidth <= 480 ? 15 : window.innerWidth <= 768 ? 20 : 30; // Gap responsivo
+            const itemWidth = allItems[0].offsetWidth + gap;
+            const centerOffset = (carouselTrack.offsetWidth / 2) - (itemWidth / 2);
+            const translateX = centerOffset - (currentIndex * itemWidth);
+            carouselTrack.style.transform = `translateX(${translateX}px)`;
+            // Actualizar dots (solo para los elementos originales)
+            const originalIndex = currentIndex - totalItems;
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === originalIndex);
+            });
+        }
+
+        function nextSlide() {
+            if (isTransitioning) return;
+            isTransitioning = true;
+            currentIndex++;
+            updateCarousel();
+            // Si llegamos al final de los clones, saltar al inicio real sin transición visible
+            if (currentIndex >= totalItems * 2) {
+                setTimeout(() => {
+                    carouselTrack.style.transition = 'none';
+                    currentIndex = totalItems;
+                    updateCarousel();
+                    setTimeout(() => {
+                        carouselTrack.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                        isTransitioning = false;
+                    }, 50);
+                }, 300);
+            } else {
+                setTimeout(() => {
+                    isTransitioning = false;
+                }, 300);
+            }
+        }
+
+        function prevSlide() {
+            if (isTransitioning) return;
+            isTransitioning = true;
+            currentIndex--;
+            updateCarousel();
+            // Si llegamos al inicio de los clones, saltar al final real sin transición visible
+            if (currentIndex < 0) {
+                setTimeout(() => {
+                    carouselTrack.style.transition = 'none';
+                    currentIndex = totalItems * 2 - 1;
+                    updateCarousel();
+                    setTimeout(() => {
+                        carouselTrack.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                        isTransitioning = false;
+                    }, 50);
+                }, 300);
+            } else {
+                setTimeout(() => {
+                    isTransitioning = false;
+                }, 300);
+            }
+        }
+
+        prevBtn.addEventListener('click', () => {
+            prevSlide();
+            restartAuto();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            nextSlide();
+            restartAuto();
+        });
+
+        // Ajustar carrusel cuando cambie el tamaño de la ventana
+        window.addEventListener('resize', () => {
+            updateCarousel();
+        });
+
+        // Soporte táctil para móviles
+        let startX = 0;
+        let endX = 0;
+
+        carouselTrack.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        });
+
+        carouselTrack.addEventListener('touchend', (e) => {
+            endX = e.changedTouches[0].clientX;
+            const diffX = startX - endX;
+            
+            if (Math.abs(diffX) > 50) { // Mínimo swipe de 50px
+                if (diffX > 0) {
+                    nextSlide();
+                    restartAuto();
+                } else {
+                    prevSlide();
+                    restartAuto();
+                }
+            }
+        });
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                if (isTransitioning) return;
+                // Calcular cuántos pasos necesitamos para llegar al índice deseado
+                const currentOriginalIndex = currentIndex - totalItems;
+                let stepsToMove = index - currentOriginalIndex;
+                if (stepsToMove < 0) {
+                    stepsToMove += totalItems;
+                }
+                for (let i = 0; i < stepsToMove; i++) {
+                    setTimeout(() => {
+                        nextSlide();
+                    }, i * 100);
+                }
+                restartAuto();
+            });
+        });
+
+        function startAuto() {
+            if (autoInterval) clearInterval(autoInterval);
+            autoInterval = setInterval(() => {
+                nextSlide();
+            }, 4000);
+        }
+
+        function restartAuto() {
+            startAuto();
+        }
+
+        // Efecto de escritura para MARVEX
+        function animateMarvexText() {
+            const marvexText = document.getElementById('marvexText');
+            if (!marvexText) return;
+
+            const text = marvexText.textContent;
+            marvexText.textContent = '';
+            
+            let index = 0;
+            const typeInterval = setInterval(() => {
+                if (index < text.length) {
+                    marvexText.textContent += text[index];
+                    index++;
+                } else {
+                    clearInterval(typeInterval);
+                    // Efecto de brillo final
+                    marvexText.style.textShadow = '0 0 20px rgba(230, 126, 34, 0.8)';
+                    setTimeout(() => {
+                        marvexText.style.textShadow = '0 0 15px rgba(230, 126, 34, 0.5)';
+                    }, 500);
+                }
+            }, 150);
+        }
+
+        // Sistema de transición de espacios
+        function initSpacesTransition() {
+            const spaceItems = document.querySelectorAll('.space-item');
+            let currentSpaceIndex = 0;
+            let autoInterval = null;
+            const totalSpaces = spaceItems.length;
+
+            function showSpace(index) {
+                // Ocultar todos los elementos
+                spaceItems.forEach(item => {
+                    item.classList.remove('active', 'prev', 'next');
+                });
+
+                // Mostrar el elemento actual
+                spaceItems[index].classList.add('active');
+
+                // Configurar elementos prev y next para efectos de transición
+                const prevIndex = (index - 1 + totalSpaces) % totalSpaces;
+                const nextIndex = (index + 1) % totalSpaces;
+                
+                spaceItems[prevIndex].classList.add('prev');
+                spaceItems[nextIndex].classList.add('next');
+            }
+
+            function nextSpace() {
+                currentSpaceIndex = (currentSpaceIndex + 1) % totalSpaces;
+                showSpace(currentSpaceIndex);
+            }
+
+            function startAuto() {
+                if (autoInterval) clearInterval(autoInterval);
+                autoInterval = setInterval(() => {
+                    nextSpace();
+                }, 3000); // Cambiar cada 3 segundos
+            }
+
+            // Inicializar
+            showSpace(0);
+            startAuto();
+
+            // Pausar auto-play al hacer hover
+            const container = document.querySelector('.spaces-transition-container');
+            container.addEventListener('mouseenter', () => {
+                if (autoInterval) clearInterval(autoInterval);
+            });
+
+            container.addEventListener('mouseleave', () => {
+                startAuto();
+            });
+        }
+
+        // Función para animar elementos al hacer scroll
+        function animateOnScroll() {
+            const observerOptions = {
+                threshold: 0.2,
+                rootMargin: '0px 0px -100px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Agregar un pequeño delay antes de mostrar
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, 100);
+                    } else {
+                        // Remover inmediatamente al salir del viewport
+                        entry.target.classList.remove('visible');
+                    }
+                });
+            }, observerOptions);
+
+            // Observar el título
+            const title = document.querySelector('.benefits-title');
+            if (title) observer.observe(title);
+
+            // Observar las tarjetas de timeline
+            const timelineItems = document.querySelectorAll('.timeline-content');
+            timelineItems.forEach((item, index) => {
+                observer.observe(item);
+                // Agregar delay escalonado más pronunciado
+                item.style.transitionDelay = `${index * 0.2}s`;
+            });
+        }
+
+        // Modal para portfolio
+        function initPortfolioModal() {
+            const modal = document.getElementById('portfolioModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalTitle = document.getElementById('modalTitle');
+            const closeModal = document.querySelector('.close-modal');
+            const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+            // Abrir modal al hacer clic en una imagen
+            portfolioItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const img = this.querySelector('.portfolio-image');
+                    const title = this.querySelector('.portfolio-text');
+                    
+                    modalImage.src = img.src;
+                    modalImage.alt = img.alt;
+                    modalTitle.textContent = title ? title.textContent : img.alt;
+                    
+                    modal.style.display = 'block';
+                    document.body.style.overflow = 'hidden'; // Prevenir scroll
+                });
+            });
+
+            // Cerrar modal al hacer clic en X
+            closeModal.addEventListener('click', function() {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto'; // Restaurar scroll
+            });
+
+            // Cerrar modal al hacer clic fuera de la imagen
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // Cerrar modal con tecla ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.style.display === 'block') {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            createInfiniteCarousel();
+            startAuto();
+            initSpacesTransition();
+            animateOnScroll();
+            initPortfolioModal();
+            
+            // Iniciar animación de MARVEX después de un pequeño delay
+            setTimeout(() => {
+                animateMarvexText();
+            }, 800);
+        });
+    </script>
+</body>
+</html>
