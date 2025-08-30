@@ -1,0 +1,12 @@
+---
+import marvexLogo from '../assets/MARVEX.png';
+
+export interface Props {
+  class?: string;
+  alt?: string;
+}
+
+const { class: className = '', alt = 'Marvex Logo' } = Astro.props;
+---
+
+<img src={marvexLogo.src} alt={alt} class={className} />
