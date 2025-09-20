@@ -22,8 +22,6 @@ import stripe from '../assets/portafolio/STRIPE.png';
 import marvex2Logo from '../assets/Marvex2.png';
 // Importar logo FEC
 import logofec from '../assets/logofec.png';
-// Importar favicon Marvex
-import faviconMarvex from '../assets/favicon marvex.png';
 ---
 
 <!DOCTYPE html>
@@ -32,10 +30,10 @@ import faviconMarvex from '../assets/favicon marvex.png';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marvex - Porcelanato Premium | Transforma tu Realidad</title>
-      <link rel="icon" type="image/png" sizes="32x32" href="/src/assets/favicon marvex.png">
-      <link rel="icon" type="image/png" sizes="16x16" href="/src/assets/favicon marvex.png">
-      <link rel="shortcut icon" href="/src/assets/favicon marvex.png">
-      <link rel="apple-touch-icon" sizes="180x180" href="/src/assets/favicon marvex.png">
+      <link rel="icon" type="image/png" sizes="32x32" href="/favicon-marvex.png">
+      <link rel="icon" type="image/png" sizes="16x16" href="/favicon-marvex.png">
+      <link rel="shortcut icon" href="/favicon-marvex.png">
+      <link rel="apple-touch-icon" sizes="180x180" href="/favicon-marvex.png">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" onerror="console.error('Error cargando GSAP')"></script>
@@ -3689,7 +3687,7 @@ import faviconMarvex from '../assets/favicon marvex.png';
         <div class="hero-content">
             <div class="marvex-brand">
                 <img src={marvex2Logo.src} alt="Marvex" class="marvex-text" id="marvexText" />
-                <img src="/src/assets/favicon marvex.png" alt="Marvex" class="marvex-favicon" />
+                <img src="/favicon-marvex.png" alt="Marvex" class="marvex-favicon" />
             </div>
             <h1 class="hero-title">TRANSFORMA TU REALIDAD</h1>
                             <p class="hero-subtitle">Cada vez que llegas, que tu hogar te dé la bienvenida perfecta</p>
@@ -4085,7 +4083,7 @@ import faviconMarvex from '../assets/favicon marvex.png';
         
         <InstagramCarousel
             images={[i1.src, i2.src, i3.src, i4.src]}
-            avatarSrc={faviconMarvex.src}
+            avatarSrc="/favicon-marvex.png"
             title="Marvex"
         />
     </section>
@@ -4297,7 +4295,7 @@ import faviconMarvex from '../assets/favicon marvex.png';
                     renderer: 'svg',
                     loop: true,
                     autoplay: true,
-                    path: '/src/assets/animation.json'
+                    path: '/animation.json'
                 });
             }
         }
