@@ -9,7 +9,10 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
+    "@supabase/supabase-js": "^2.57.4",
     "astro": "^5.13.4",
-    "gsap": "^3.13.0"
+    "gsap": "^3.13.0",
+    "nodemailer": "^7.0.6"
   }
 }

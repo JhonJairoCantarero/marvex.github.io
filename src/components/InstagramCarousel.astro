@@ -1,0 +1,968 @@
+---
+// Componente de carrusel tipo Instagram basado en el ejemplo de CodePen
+// Props:
+// - images: string[] URLs o rutas locales
+// - avatarSrc: string URL del avatar
+// - avatarAlt: string alt del avatar
+// - title: string título del header (ej: "Jake the Dog")
+export interface Props {
+  images: string[];
+  avatarSrc?: string;
+  avatarAlt?: string;
+  title?: string;
+}
+
+const { images = [], avatarSrc = '/favicon.png', avatarAlt = 'Marvex Icon', title = 'Marvex' } = Astro.props;
+const totalItems = images.length;
+
+
+function getDelayStyle(index: number, total: number): string {
+  const delayPerItem = 27 / Math.max(1, total);
+  if (index === total - 1) {
+    return `animation-delay: calc(-${delayPerItem}s * 2)`;
+  }
+  const factor = index - 1;
+  return `animation-delay: calc(${delayPerItem}s * ${factor})`;
+}
+---
+
+<!-- Contenedor principal con corazones flotantes -->
+<div class="instagram-carousel-wrapper">
+  <!-- Corazones flotantes con burbujas de notificaciones -->
+  <div class="floating-hearts">
+    <!-- Corazones sólidos -->
+    <div class="heart heart-solid heart-1">❤️</div>
+    <div class="heart heart-solid heart-2">❤️</div>
+    <div class="heart heart-solid heart-3">❤️</div>
+    <div class="heart heart-solid heart-4">❤️</div>
+    <div class="heart heart-solid heart-5">❤️</div>
+    <div class="heart heart-solid heart-6">❤️</div>
+    
+    <!-- Burbujas de notificaciones con corazones -->
+    <div class="heart-notification notification-1">
+      <div class="notification-bubble">
+        <span class="heart-icon">❤️</span>
+      </div>
+    </div>
+    <div class="heart-notification notification-2">
+      <div class="notification-bubble">
+        <span class="heart-icon">❤️</span>
+      </div>
+    </div>
+    <div class="heart-notification notification-3">
+      <div class="notification-bubble">
+        <span class="heart-icon">❤️</span>
+      </div>
+    </div>
+    <div class="heart-notification notification-4">
+      <div class="notification-bubble">
+        <span class="heart-icon">❤️</span>
+      </div>
+    </div>
+    <div class="heart-notification notification-5">
+      <div class="notification-bubble">
+        <span class="heart-icon">❤️</span>
+      </div>
+    </div>
+    <div class="heart-notification notification-6">
+      <div class="notification-bubble">
+        <span class="heart-icon">❤️</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <aside class="carousel" aria-hidden="true">
+      <div class="carousel__wrapper">
+        {images.map((item, i) => (
+          <div class="item" id={`slide-${i}`} style={getDelayStyle(i, totalItems)}> 
+            <img src={item} alt="" width="418" height="418" loading={i < 2 ? 'eager' : 'lazy'} />
+          </div>
+        ))}
+      </div>
+    </aside>
+    <article class="instagram" aria-label="Carrusel Marvex">
+      <header class="instagram__header">
+        <figure>
+          {avatarSrc && <img src={avatarSrc} alt={avatarAlt} width="42" height="42" />}
+          <figcaption>
+            <h4>{title}</h4>
+          </figcaption>
+        </figure>
+      </header>
+      <section class="instagram__media">
+        <div class="img">
+          <!-- Imágenes del carrusel DENTRO del recuadro del Instagram -->
+          <div class="media-carousel">
+            {images.map((item, i) => (
+              <div class="media-item" id={`media-slide-${i}`}> 
+                <img src={item} alt={`Imagen ${i + 1}`} loading={i < 2 ? 'eager' : 'lazy'} />
+                
+                <!-- Botón de corazón animado que aparece con cada imagen -->
+                <div class="heart-button" id={`heart-btn-${i}`}>
+                  <svg class="heart-icon" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M16.8196 3.40477L16.8196 3.40468L16.8105 3.40435C15.9939 3.37401 15.1837 3.55848 14.4607 3.93934C13.7415 4.31818 13.1337 4.87813 12.6974 5.56376C12.3799 6.0141 12.1595 6.38237 12.0011 6.66645C11.841 6.38254 11.6182 6.01451 11.2971 5.5646C10.8588 4.88294 10.252 4.32584 9.53521 3.94728C8.81455 3.56666 8.00746 3.37954 7.19284 3.40423L7.19283 3.40408L7.18038 3.40477C5.73422 3.48471 4.37827 4.133 3.40801 5.20836C2.44041 6.28078 1.93462 7.69124 1.99999 9.13385C2.00344 10.8131 2.73878 12.1587 3.76066 13.3486C4.54375 14.2605 5.52952 15.1172 6.516 15.9745C6.80035 16.2216 7.08476 16.4688 7.36439 16.7173C7.71256 17.0283 8.0484 17.3289 8.36875 17.6156C9.03981 18.2163 9.64287 18.7561 10.1488 19.2024C10.8808 19.8482 11.4505 20.3358 11.7281 20.5156L11.9996 20.6915L12.2713 20.516C12.5291 20.3494 13.0097 19.9415 13.7041 19.3303C14.2257 18.8712 14.8883 18.2789 15.7018 17.5517C15.9935 17.2909 16.3047 17.0128 16.6357 16.7172C16.9253 16.4597 17.2205 16.2037 17.5157 15.9477C18.4876 15.105 19.4601 14.2617 20.2346 13.3628C21.2586 12.1744 21.9965 10.8264 22 9.13385C22.0653 7.69123 21.5596 6.28078 20.592 5.20836C19.6217 4.133 18.2657 3.48471 16.8196 3.40477ZM11.6142 4.35506L11.9954 4.80294L12.3761 4.35467C12.9155 3.71951 13.5913 3.21422 14.3531 2.87644C15.1144 2.53889 15.9419 2.37731 16.7742 2.40369C18.4866 2.47112 20.1027 3.21362 21.2694 4.46897C22.4364 5.72476 23.0588 7.39158 23.0003 9.10494L23 9.11347V9.122C23 12.4787 20.5608 14.6294 18.1924 16.6842C17.8966 16.94 17.598 17.2003 17.3031 17.462L17.3018 17.4632L16.3798 18.2872L16.3736 18.2927L16.3676 18.2985C15.2327 19.3827 14.0415 20.4065 12.7991 21.3656C12.5599 21.5162 12.2829 21.5962 12 21.5962C11.7171 21.5962 11.4402 21.5162 11.201 21.3657C9.9972 20.4352 8.84189 19.4436 7.73965 18.3948L7.73401 18.3894L7.7282 18.3842L6.7012 17.4662L6.70057 17.4657C6.43759 17.2314 6.17305 17.0015 5.91337 16.7758C5.88988 16.7554 5.86643 16.735 5.84303 16.7147C3.34442 14.5424 0.999982 12.4694 0.999982 9.122V9.11347L0.999691 9.10494C0.941196 7.39158 1.56352 5.72476 2.73058 4.46897C3.89709 3.21378 5.51295 2.47131 7.2251 2.40372C8.0557 2.37962 8.88112 2.54227 9.6405 2.87968C10.4006 3.21742 11.0751 3.72163 11.6142 4.35506Z"/>
+                  </svg>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          <!-- Fallback si no hay imágenes -->
+          {images.length === 0 && (
+            <div class="media-fallback">
+              <span>✨ Marvex Porcelanato ✨</span>
+            </div>
+          )}
+        </div>
+      </section>
+      <footer class="instagram__buttons" aria-hidden="true">
+        <div class="left">
+          <svg class="instagram__icon instagram__icon--heart" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M16.8196 3.40477L16.8196 3.40468L16.8105 3.40435C15.9939 3.37401 15.1837 3.55848 14.4607 3.93934C13.7415 4.31818 13.1337 4.87813 12.6974 5.56376C12.3799 6.0141 12.1595 6.38237 12.0011 6.66645C11.841 6.38254 11.6182 6.01451 11.2971 5.5646C10.8588 4.88294 10.252 4.32584 9.53521 3.94728C8.81455 3.56666 8.00746 3.37954 7.19284 3.40423L7.19283 3.40408L7.18038 3.40477C5.73422 3.48471 4.37827 4.133 3.40801 5.20836C2.44041 6.28078 1.93462 7.69124 1.99999 9.13385C2.00344 10.8131 2.73878 12.1587 3.76066 13.3486C4.54375 14.2605 5.52952 15.1172 6.516 15.9745C6.80035 16.2216 7.08476 16.4688 7.36439 16.7173C7.71256 17.0283 8.0484 17.3289 8.36875 17.6156C9.03981 18.2163 9.64287 18.7561 10.1488 19.2024C10.8808 19.8482 11.4505 20.3358 11.7281 20.5156L11.9996 20.6915L12.2713 20.516C12.5291 20.3494 13.0097 19.9415 13.7041 19.3303C14.2257 18.8712 14.8883 18.2789 15.7018 17.5517C15.9935 17.2909 16.3047 17.0128 16.6357 16.7172C16.9253 16.4597 17.2205 16.2037 17.5157 15.9477C18.4876 15.105 19.4601 14.2617 20.2346 13.3628C21.2586 12.1744 21.9965 10.8264 22 9.13385C22.0653 7.69123 21.5596 6.28078 20.592 5.20836C19.6217 4.133 18.2657 3.48471 16.8196 3.40477ZM11.6142 4.35506L11.9954 4.80294L12.3761 4.35467C12.9155 3.71951 13.5913 3.21422 14.3531 2.87644C15.1144 2.53889 15.9419 2.37731 16.7742 2.40369C18.4866 2.47112 20.1027 3.21362 21.2694 4.46897C22.4364 5.72476 23.0588 7.39158 23.0003 9.10494L23 9.11347V9.122C23 12.4787 20.5608 14.6294 18.1924 16.6842C17.8966 16.94 17.598 17.2003 17.3031 17.462L17.3018 17.4632L16.3798 18.2872L16.3736 18.2927L16.3676 18.2985C15.2327 19.3827 14.0415 20.4065 12.7991 21.3656C12.5599 21.5162 12.2829 21.5962 12 21.5962C11.7171 21.5962 11.4402 21.5162 11.201 21.3657C9.9972 20.4352 8.84189 19.4436 7.73965 18.3948L7.73401 18.3894L7.7282 18.3842L6.7012 17.4662L6.70057 17.4657C6.43759 17.2314 6.17305 17.0015 5.91337 16.7758C5.88988 16.7554 5.86643 16.735 5.84303 16.7147C3.34442 14.5424 0.999982 12.4694 0.999982 9.122V9.11347L0.999691 9.10494C0.941196 7.39158 1.56352 5.72476 2.73058 4.46897C3.89709 3.21378 5.51295 2.47131 7.2251 2.40372C8.0557 2.37962 8.88112 2.54227 9.6405 2.87968C10.4006 3.21742 11.0751 3.72163 11.6142 4.35506Z"/>
+          </svg>
+          <svg class="instagram__icon instagram__icon--comment" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.656 17.008C21.8711 14.9061 22.2795 12.4337 21.8048 10.0527C21.3301 7.67172 20.0048 5.54497 18.0765 4.06978C16.1482 2.59458 13.7488 1.87186 11.3266 2.0366C8.9043 2.20135 6.62486 3.24231 4.91408 4.96501C3.20329 6.68772 2.17817 8.97432 2.03024 11.3977C1.8823 13.821 2.62166 16.2153 4.1102 18.1334C5.59874 20.0514 7.73463 21.3619 10.1189 21.82C12.5031 22.2782 14.9726 21.8527 17.066 20.623L22 22L20.656 17.008Z"/>
+          </svg>
+          <svg class="instagram__icon instagram__icon--message" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M22 3 9.218 10.083M11.698 20.334 22 3.001H2L9.218 10.084 11.698 20.334Z"/>
+          </svg>
+        </div>
+        <div class="right">
+          <svg class="instagram__icon instagram__icon--saved" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20 21L12 13.44L4 21V3H20V21Z"/>
+          </svg>
+        </div>
+      </footer>
+    </article>
+  </div>
+</div>
+
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
+/* Variables CSS para tema blanco elegante */
+:root {
+  --light: 1;
+  --max-width-post: 100vw; /* 100% del ancho del navegador */
+  --primary: #ff6b6b;
+  --primary-dark: #e74c3c;
+  --bg: #ffffff;
+  --bg-light: #f8f9fa;
+  --text-primary: #2c3e50;
+  --text-secondary: #6c757d;
+  --border-color: #e9ecef;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --font-size-sm: clamp(0.7rem, 0.91vw + 0.47rem, 1.2rem);
+  --font-size-base: clamp(0.88rem, 1.14vw + 0.59rem, 1.5rem);
+  --font-size-md: clamp(1.09rem, 1.42vw + 0.74rem, 1.88rem);
+  --font-size-lg: clamp(1.37rem, 1.78vw + 0.92rem, 2.34rem);
+  --font-size-xl: clamp(1.71rem, 2.22vw + 1.15rem, 2.93rem);
+  --font-size-xxl: clamp(2.14rem, 2.77vw + 1.44rem, 3.66rem);
+  --font-size-xxxl: clamp(2.67rem, 3.47vw + 1.8rem, 4.58rem);
+}
+
+* { box-sizing: border-box; }
+
+/* Contenedor principal con altura fija y fondo transparente */
+.instagram-carousel-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 80vh;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 2rem 0;
+}
+
+/* Corazones flotantes */
+.floating-hearts {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.heart {
+  position: absolute;
+  font-size: 2rem;
+  animation: float 6s ease-in-out infinite;
+  opacity: 0.8;
+}
+
+/* Burbujas de notificaciones con corazones */
+.heart-notification {
+  position: absolute;
+  animation: notificationFloat 8s ease-in-out infinite;
+}
+
+.notification-bubble {
+  background: #ff4757;
+  border-radius: 20px;
+  padding: 8px 12px;
+  box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  position: relative;
+}
+
+.notification-bubble::before {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid #ff4757;
+}
+
+.heart-icon {
+  font-size: 1.2rem;
+  color: white;
+}
+
+.heart-1 {
+  top: 10%;
+  left: 10%;
+  animation-delay: 0s;
+  animation-duration: 8s;
+}
+
+.heart-2 {
+  top: 20%;
+  right: 15%;
+  animation-delay: 1s;
+  animation-duration: 7s;
+}
+
+.heart-3 {
+  top: 60%;
+  left: 20%;
+  animation-delay: 2s;
+  animation-duration: 9s;
+}
+
+.heart-4 {
+  top: 70%;
+  right: 10%;
+  animation-delay: 3s;
+  animation-duration: 6s;
+}
+
+.heart-5 {
+  top: 40%;
+  left: 5%;
+  animation-delay: 4s;
+  animation-duration: 8s;
+}
+
+.heart-6 {
+  top: 30%;
+  right: 5%;
+  animation-delay: 5s;
+  animation-duration: 7s;
+}
+
+/* Posiciones para las burbujas de notificaciones */
+.notification-1 {
+  top: 15%;
+  left: 15%;
+  animation-delay: 0.5s;
+}
+
+.notification-2 {
+  top: 25%;
+  right: 20%;
+  animation-delay: 1.5s;
+}
+
+.notification-3 {
+  top: 65%;
+  left: 25%;
+  animation-delay: 2.5s;
+}
+
+.notification-4 {
+  top: 75%;
+  right: 15%;
+  animation-delay: 3.5s;
+}
+
+.notification-5 {
+  top: 45%;
+  left: 8%;
+  animation-delay: 4.5s;
+}
+
+.notification-6 {
+  top: 35%;
+  right: 8%;
+  animation-delay: 5.5s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.8;
+  }
+  25% {
+    transform: translateY(-20px) rotate(5deg);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-10px) rotate(-3deg);
+    opacity: 0.9;
+  }
+  75% {
+    transform: translateY(-15px) rotate(2deg);
+    opacity: 1;
+  }
+}
+
+@keyframes notificationFloat {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+    opacity: 0.9;
+  }
+  25% {
+    transform: translateY(-15px) scale(1.05);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-8px) scale(0.95);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translateY(-12px) scale(1.02);
+    opacity: 1;
+  }
+}
+
+.container {
+  --container-padding-horizontal: 0px; /* Sin padding para ocupar todo el ancho */
+  position: relative;
+  padding-inline: var(--container-padding-horizontal);
+  display: grid;
+  place-items: center;
+  width: 100%;
+  z-index: 2;
+}
+
+.carousel {
+  pointer-events: none;
+  position: absolute;
+  padding-block-start: 67px;
+  padding-block-end: max(24px, calc(29px + var(--font-size-md)));
+  perspective: 100px;
+  width: 100%;
+}
+
+.carousel__wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  height: 61.2vh;
+  min-height: 400px;
+}
+
+.carousel .item {
+  position: absolute;
+  max-width: 100%; /* Ocupar todo el ancho disponible */
+  height: 100%;
+  margin-inline: 0; /* Sin márgenes horizontales */
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: carousel-animate 27s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px var(--shadow-color);
+  border: 2px solid var(--border-color);
+}
+
+.carousel img { 
+  max-width: 100%; 
+  object-fit: cover; 
+  height: 100%; 
+  display: block; 
+  border-radius: 15px;
+}
+
+@keyframes carousel-animate {
+  0% { visibility: hidden; opacity: 0; transform: translateX(200%) scale(0.7); }
+  3%, 14.2857% { visibility: visible; opacity: 0.8; transform: translateX(100%) scale(0.9); }
+  17.2857%, 28.5714% { visibility: visible; opacity: 1; transform: translateX(0) scale(1); }
+  31.5714%, 42.8571% { visibility: visible; opacity: 0.8; transform: translateX(-100%) scale(0.9); }
+  45.8571% { visibility: visible; opacity: 0; transform: translateX(-200%) scale(0.9); }
+  100% { visibility: hidden; opacity: 0; transform: translateX(-200%) scale(0.7); }
+}
+
+.instagram { 
+  max-width: var(--max-width-post); 
+  width: 100%; 
+  border: 2px solid var(--border-color); 
+  border-radius: 20px; 
+  color: var(--text-primary); 
+  background: var(--bg);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 40px var(--shadow-color);
+  z-index: 3;
+}
+
+.instagram__header { 
+  padding-block: 12px; 
+  border-bottom: 1px solid var(--border-color); 
+  background: var(--bg-light);
+}
+
+.instagram__header figure { 
+  padding-inline: 16px; 
+  margin: 0; 
+  display: flex; 
+  align-items: center; 
+}
+
+.instagram__header img { 
+  border-radius: 50%; 
+  object-fit: cover; 
+  border: 2px solid var(--primary); 
+  margin-inline-end: 8px; 
+}
+
+.instagram__header h4 {
+  color: var(--text-primary);
+  font-weight: 600;
+  margin: 0;
+}
+
+.instagram__media { 
+  display: flex; 
+  border-bottom: 1px solid var(--border-color); 
+  background: var(--bg);
+}
+
+.instagram__media .img { 
+  width: 100%;
+  aspect-ratio: 16/9; /* Cambiado de 1/1 a 16/9 para imágenes más grandes */
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  font-size: 1.2rem;
+  font-weight: 600;
+  border: 1px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Carrusel de media en el centro */
+.media-carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.media-item {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: media-carousel-animate 27s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  background: #f8f9fa; /* Fondo suave para cuando la imagen no ocupe todo el espacio */
+  overflow: hidden;
+}
+
+.media-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Cambiado de cover a contain para mostrar la imagen completa */
+  border-radius: 0;
+  box-shadow: none;
+  display: block;
+}
+
+/* Botón de corazón animado que aparece con cada imagen */
+.heart-button {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 10;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  border: 2px solid var(--primary);
+}
+
+.heart-button:hover {
+  transform: translateY(-50%) scale(1.1);
+  background: rgba(255, 107, 107, 0.1);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.3);
+}
+
+.heart-icon {
+  width: 24px;
+  height: 24px;
+  transition: all 0.3s ease;
+}
+
+.heart-button:hover .heart-icon {
+  transform: scale(1.2);
+}
+
+.heart-icon path {
+  stroke: var(--primary);
+  stroke-width: 2;
+  fill: none;
+  transition: all 0.3s ease;
+}
+
+.heart-button:hover .heart-icon path {
+  stroke: var(--primary-dark);
+  fill: var(--primary);
+}
+
+/* Animación del botón de corazón sincronizada con el carrusel */
+.media-item:nth-child(1) .heart-button {
+  animation: heartButtonAppear 27s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+  animation-delay: calc(27s / 4 * 0);
+}
+
+.media-item:nth-child(2) .heart-button {
+  animation: heartButtonAppear 27s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+  animation-delay: calc(27s / 4 * 1);
+}
+
+.media-item:nth-child(3) .heart-button {
+  animation: heartButtonAppear 27s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+  animation-delay: calc(27s / 4 * 2);
+}
+
+.media-item:nth-child(4) .heart-button {
+  animation: heartButtonAppear 27s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+  animation-delay: calc(27s / 4 * 3);
+}
+
+/* Delays de animación para cada imagen del carrusel */
+.media-item:nth-child(1) {
+  animation-delay: calc(27s / 4 * 0);
+}
+
+.media-item:nth-child(2) {
+  animation-delay: calc(27s / 4 * 1);
+}
+
+.media-item:nth-child(3) {
+  animation-delay: calc(27s / 4 * 2);
+}
+
+.media-item:nth-child(4) {
+  animation-delay: calc(27s / 4 * 3);
+}
+
+@keyframes heartButtonAppear {
+  0%, 5% { 
+    opacity: 0; 
+    visibility: hidden; 
+  }
+  5.1%, 25% { 
+    opacity: 1; 
+    visibility: visible; 
+  }
+  25.1%, 100% { 
+    opacity: 0; 
+    visibility: hidden; 
+  }
+}
+
+/* Fallback para cuando no hay imágenes */
+.media-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--primary);
+  text-align: center;
+}
+
+@keyframes media-carousel-animate {
+  0% { visibility: hidden; opacity: 0; }
+  3%, 25% { visibility: visible; opacity: 1; }
+  25.1% { visibility: hidden; opacity: 0; }
+  100% { visibility: hidden; opacity: 0; }
+}
+
+.instagram__buttons { 
+  padding: 12px 16px; 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  background: var(--bg-light);
+}
+
+.instagram__buttons .left { 
+  display: flex; 
+  align-items: center; 
+}
+
+.instagram__buttons .left svg:nth-of-type(2) { 
+  margin-inline: 12px; 
+}
+
+.instagram__icon { 
+  cursor: pointer; 
+  width: 1em; 
+  height: 1em; 
+  font-size: var(--font-size-md); 
+  min-width: 24px; 
+  min-height: 24px; 
+  transition: all 0.3s ease;
+}
+
+.instagram__icon:hover { 
+  opacity: 0.7; 
+  transform: scale(1.1);
+}
+
+.instagram__icon path { 
+  stroke: var(--primary); 
+  stroke-linejoin: round; 
+  fill: none;
+}
+
+.instagram__icon--comment path, 
+.instagram__icon--message path, 
+.instagram__icon--saved path { 
+  stroke-width: 2; 
+}
+
+.instagram__icon--message { 
+  margin-block-start: 3px; 
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .instagram-carousel-wrapper {
+    min-height: 60vh;
+    padding: 1rem 0;
+  }
+  
+  .carousel__wrapper {
+    height: 50vh;
+    min-height: 300px;
+  }
+  
+  .instagram__media .img {
+    height: 50vh;
+    min-height: 250px;
+  }
+  
+  .heart {
+    font-size: 1.5rem;
+  }
+}
+</style>
+
+<script>
+  let checked = false;
+  let heartCount = 0;
+  
+  // Toggle de tema al hacer clic solo en la sección de Instagram
+  document.addEventListener('pointerdown', (e) => {
+    // Verificar si el clic fue dentro del carrusel de Instagram
+    const instagramSection = e.target.closest('.instagram-carousel-wrapper');
+    if (instagramSection) {
+      checked = !checked;
+      document.documentElement.style.setProperty('--light', checked ? '1' : '0');
+      
+      // Crear corazón adicional al hacer clic solo en esta sección
+      createFloatingHeart(e.clientX, e.clientY);
+    }
+  });
+  
+  // Función para crear múltiples burbujas de notificación en los marcos laterales
+  function createFloatingHeart(x, y) {
+    // Crear 3-5 burbujas en posiciones aleatorias de los marcos laterales
+    const numBubbles = Math.floor(Math.random() * 3) + 3; // 3-5 burbujas
+    
+    for (let i = 0; i < numBubbles; i++) {
+      setTimeout(() => {
+        const notificationBubble = document.createElement('div');
+        
+        // Posiciones aleatorias en los marcos laterales (lados izquierdo y derecho)
+        const isLeftSide = Math.random() < 0.5;
+        const randomX = isLeftSide 
+          ? Math.random() * (window.innerWidth * 0.2) // Lado izquierdo (20% del ancho)
+          : window.innerWidth - (Math.random() * (window.innerWidth * 0.2)); // Lado derecho
+        
+        const randomY = Math.random() * (window.innerHeight * 0.6) + (window.innerHeight * 0.2); // Centro vertical
+        
+        notificationBubble.style.position = 'fixed';
+        notificationBubble.style.left = randomX + 'px';
+        notificationBubble.style.top = randomY + 'px';
+        notificationBubble.style.pointerEvents = 'none';
+        notificationBubble.style.zIndex = '9999';
+        notificationBubble.style.animation = 'notificationBurst 2.5s ease-out forwards';
+        
+        // Crear la burbuja con corazón
+        notificationBubble.innerHTML = `
+          <div style="
+            background: #ff4757;
+            border-radius: 20px;
+            padding: 8px 12px;
+            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 40px;
+            height: 40px;
+            position: relative;
+          ">
+            <span style="font-size: 1.2rem; color: white;">❤️</span>
+            <div style="
+              position: absolute;
+              bottom: -8px;
+              left: 50%;
+              transform: translateX(-50%);
+              width: 0;
+              height: 0;
+              border-left: 8px solid transparent;
+              border-right: 8px solid transparent;
+              border-top: 8px solid #ff4757;
+            "></div>
+          </div>
+        `;
+        
+        document.body.appendChild(notificationBubble);
+        
+        // Remover la burbuja después de la animación
+        setTimeout(() => {
+          if (notificationBubble.parentNode) {
+            notificationBubble.parentNode.removeChild(notificationBubble);
+          }
+        }, 2500);
+        
+      }, i * 100); // Delay escalonado para que aparezcan una tras otra
+    }
+    
+    heartCount++;
+  }
+  
+  // Agregar estilos para las animaciones de corazón
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes notificationBurst {
+      0% {
+        transform: scale(0) translateY(0px);
+        opacity: 1;
+      }
+      30% {
+        transform: scale(1.2) translateY(-20px);
+        opacity: 1;
+      }
+      70% {
+        transform: scale(1) translateY(-40px);
+        opacity: 0.8;
+      }
+      100% {
+        transform: scale(0.8) translateY(-80px);
+        opacity: 0;
+      }
+    }
+    
+    @keyframes heartBurst {
+      0% {
+        transform: scale(0) rotate(0deg);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.5) rotate(180deg);
+        opacity: 0.8;
+      }
+      100% {
+        transform: scale(0.5) rotate(360deg) translateY(-100px);
+        opacity: 0;
+      }
+    }
+    
+    @keyframes heartLike {
+      0% {
+        transform: translateY(-50%) scale(1);
+      }
+      50% {
+        transform: translateY(-50%) scale(1.3);
+      }
+      100% {
+        transform: translateY(-50%) scale(1);
+      }
+    }
+    
+    @keyframes heartExplosion {
+      0% {
+        transform: translate(0, 0) scale(0.5) rotate(0deg);
+        opacity: 1;
+      }
+      50% {
+        transform: translate(calc(var(--end-x) * 0.5), calc(var(--end-y) * 0.5)) scale(1.2) rotate(180deg);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translate(var(--end-x), var(--end-y)) scale(0.3) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+  
+  // Efecto de hover en los iconos del Instagram
+  document.addEventListener('DOMContentLoaded', () => {
+    const icons = document.querySelectorAll('.instagram__icon');
+    icons.forEach(icon => {
+      icon.addEventListener('mouseenter', () => {
+        icon.style.transform = 'scale(1.2)';
+        icon.style.filter = 'drop-shadow(0 0 10px #ff6b6b)';
+      });
+      
+      icon.addEventListener('mouseleave', () => {
+        icon.style.transform = 'scale(1)';
+        icon.style.filter = 'none';
+      });
+    });
+
+    // Funcionalidad de los botones de corazón en el carrusel
+    let currentImageIndex = 0;
+    const totalImages = document.querySelectorAll('.media-item').length;
+    
+    const heartButtons = document.querySelectorAll('.heart-button');
+    heartButtons.forEach((button, index) => {
+      button.addEventListener('click', (e) => {
+        e.stopPropagation();
+        
+        // Crear efecto de explosión de corazones
+        createHeartExplosion(e.clientX, e.clientY);
+        
+        // Animación de "like" en el botón
+        button.style.animation = 'none';
+        button.offsetHeight; // Trigger reflow
+        button.style.animation = 'heartLike 0.6s ease-out';
+        
+        // Cambiar el estado del corazón (like/unlike)
+        const heartIcon = button.querySelector('.heart-icon path');
+        const isLiked = heartIcon.getAttribute('fill') !== 'none';
+        
+        if (isLiked) {
+          heartIcon.setAttribute('fill', 'none');
+          heartIcon.setAttribute('stroke', '#ff6b6b');
+        } else {
+          heartIcon.setAttribute('fill', '#ff6b6b');
+          heartIcon.setAttribute('stroke', '#ff6b6b');
+        }
+        
+        // Avanzar al siguiente índice de imagen
+        currentImageIndex = (currentImageIndex + 1) % totalImages;
+        
+        // Forzar el cambio de imagen en el carrusel
+        changeToImage(currentImageIndex);
+        
+      });
+    });
+    
+    // Función para cambiar a una imagen específica
+    function changeToImage(index) {
+      const mediaItems = document.querySelectorAll('.media-item');
+      const carouselItems = document.querySelectorAll('.carousel .item');
+      
+      // Ocultar todas las imágenes del carrusel de media
+      mediaItems.forEach((item, i) => {
+        if (i === index) {
+          item.style.opacity = '1';
+          item.style.visibility = 'visible';
+        } else {
+          item.style.opacity = '0';
+          item.style.visibility = 'hidden';
+        }
+      });
+      
+      // También cambiar las imágenes del carrusel de fondo
+      carouselItems.forEach((item, i) => {
+        if (i === index) {
+          item.style.opacity = '1';
+          item.style.visibility = 'visible';
+        } else {
+          item.style.opacity = '0';
+          item.style.visibility = 'hidden';
+        }
+      });
+    }
+  });
+
+  // Función para crear explosión de corazones al hacer clic
+  function createHeartExplosion(x, y) {
+    for (let i = 0; i < 6; i++) {
+      setTimeout(() => {
+        const heart = document.createElement('div');
+        heart.innerHTML = '❤️'; // Solo corazón normal
+        heart.style.position = 'fixed';
+        heart.style.left = x + 'px';
+        heart.style.top = y + 'px';
+        heart.style.fontSize = '1.5rem';
+        heart.style.pointerEvents = 'none';
+        heart.style.zIndex = '9999';
+        heart.style.animation = `heartExplosion 1.5s ease-out forwards`;
+        
+        // Posición aleatoria para la explosión
+        const angle = (i * 60) * (Math.PI / 180);
+        const distance = 50 + Math.random() * 30;
+        const endX = x + Math.cos(angle) * distance;
+        const endY = y + Math.sin(angle) * distance;
+        
+        heart.style.setProperty('--end-x', endX + 'px');
+        heart.style.setProperty('--end-y', endY + 'px');
+        
+        document.body.appendChild(heart);
+        
+        // Remover el corazón después de la animación
+        setTimeout(() => {
+          if (heart.parentNode) {
+            heart.parentNode.removeChild(heart);
+          }
+        }, 1500);
+      }, i * 50);
+    }
+  }
+</script>
+
+

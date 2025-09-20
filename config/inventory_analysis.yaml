@@ -1,0 +1,11 @@
+service_level: 0.95            # Nivel de servicio objetivo (95%)
+default_lead_time_days: 7      # Lead time promedio en días (global)
+review_period_days: 7          # Días entre revisiones/reabastecimientos
+min_history_days: 90           # Historial mínimo requerido por SKU (días)
+
+# Lead times específicos por SKU (opcional)
+sku_lead_times:
+  # "SKU123": 10
+  # "SKU456": 5
+
+
