@@ -1,0 +1,424 @@
+---
+// SiteTour.astro
+---
+
+<div id="site-tour-overlay" class="tour-overlay hidden">
+    <div class="tour-backdrop"></div>
+
+    <!-- AI Avatar / Persona -->
+    <div class="ai-persona">
+        <div class="ai-core">
+            <div class="ai-ring ring-1"></div>
+            <div class="ai-ring ring-2"></div>
+            <div class="ai-ring ring-3"></div>
+            <div class="ai-center"></div>
+        </div>
+        <div class="ai-speech-bubble">
+            <p id="tour-text">Iniciando análisis del sitio...</p>
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="tour-controls">
+        <button id="skip-tour" class="tour-btn">
+            <i class="fas fa-times"></i> Cerrar
+        </button>
+        <div class="tour-progress">
+            <div class="progress-bar" id="tour-progress-bar"></div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .tour-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 9999;
+        pointer-events: none; /* Allow clicks to pass through to highlighted elements if needed, but usually we want to block */
+        pointer-events: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: "Outfit", sans-serif; /* Futuristic font */
+    }
+
+    .tour-overlay.hidden {
+        display: none;
+    }
+
+    .tour-backdrop {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(10, 10, 20, 0.85); /* Dark, futuristic blue-black */
+        backdrop-filter: blur(5px);
+        z-index: -1;
+    }
+
+    /* AI Persona Styling */
+    .ai-persona {
+        position: fixed;
+        bottom: 50px;
+        right: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 20px;
+        z-index: 10000;
+        transition: all 0.5s ease;
+    }
+
+    .ai-core {
+        width: 80px;
+        height: 80px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .ai-center {
+        width: 20px;
+        height: 20px;
+        background: #00f3ff; /* Cyan neon */
+        border-radius: 50%;
+        box-shadow:
+            0 0 20px #00f3ff,
+            0 0 40px #00f3ff;
+        animation: pulse 2s infinite;
+    }
+
+    .ai-ring {
+        position: absolute;
+        border: 2px solid rgba(0, 243, 255, 0.3);
+        border-radius: 50%;
+        border-left-color: #00f3ff;
+        border-right-color: transparent;
+    }
+
+    .ring-1 {
+        width: 100%;
+        height: 100%;
+        animation: spin 4s linear infinite;
+    }
+    .ring-2 {
+        width: 70%;
+        height: 70%;
+        animation: spin 6s linear infinite reverse;
+        border-top-color: #00f3ff;
+    }
+    .ring-3 {
+        width: 130%;
+        height: 130%;
+        border: 1px dashed rgba(0, 243, 255, 0.2);
+        animation: spin 10s linear infinite;
+    }
+
+    .ai-speech-bubble {
+        background: rgba(0, 20, 40, 0.8);
+        border: 1px solid rgba(0, 243, 255, 0.3);
+        padding: 20px;
+        border-radius: 15px 15px 0 15px;
+        max-width: 300px;
+        box-shadow: 0 0 30px rgba(0, 243, 255, 0.1);
+        backdrop-filter: blur(10px);
+        transform-origin: bottom right;
+        animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .ai-speech-bubble p {
+        color: #e0faff;
+        font-size: 1.1rem;
+        line-height: 1.5;
+        margin: 0;
+        text-shadow: 0 0 5px rgba(0, 243, 255, 0.5);
+    }
+
+    /* Controls */
+    .tour-controls {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 300px;
+        z-index: 10000;
+    }
+
+    .tour-btn {
+        background: rgba(255, 50, 50, 0.2);
+        border: 1px solid rgba(255, 50, 50, 0.5);
+        color: #ffaaaa;
+        padding: 8px 16px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: all 0.3s;
+        align-self: center;
+    }
+
+    .tour-btn:hover {
+        background: rgba(255, 50, 50, 0.4);
+        box-shadow: 0 0 15px rgba(255, 50, 50, 0.3);
+    }
+
+    .tour-progress {
+        width: 100%;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+        overflow: hidden;
+    }
+
+    .progress-bar {
+        height: 100%;
+        background: #00f3ff;
+        width: 0%;
+        transition: width 0.5s ease;
+        box-shadow: 0 0 10px #00f3ff;
+    }
+
+    /* Highlight Spotlights */
+    .tour-spotlight {
+        position: absolute;
+        border-radius: 10px;
+        box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.85);
+        z-index: 9998;
+        pointer-events: none;
+        transition: all 0.5s ease;
+        border: 2px solid #00f3ff;
+    }
+
+    @keyframes spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+    @keyframes pulse {
+        0%,
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+        50% {
+            transform: scale(0.8);
+            opacity: 0.7;
+        }
+    }
+    @keyframes popIn {
+        from {
+            opacity: 0;
+            transform: scale(0.8) translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .ai-persona {
+            bottom: 20px;
+            right: 20px;
+            flex-direction: column-reverse; /* Bubble on top on mobile */
+            align-items: center;
+        }
+        .ai-speech-bubble {
+            border-radius: 15px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        .ai-core {
+            width: 60px;
+            height: 60px;
+        }
+    }
+</style>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+
+    gsap.registerPlugin(ScrollToPlugin);
+
+    class SiteTour {
+        steps: {
+            target: string;
+            text: string;
+            duration: number;
+            highlight?: boolean;
+        }[];
+        currentStep: number;
+        isActive: boolean;
+        overlay: HTMLElement | null;
+        textElement: HTMLElement | null;
+        progressBar: HTMLElement | null;
+        spotlight: HTMLElement | null;
+
+        constructor() {
+            this.steps = [
+                {
+                    target: "body", // Start generic
+                    text: "¡Hola! Soy A.I.V.A, tu asistente virtual. Te daré un recorrido rápido por la experiencia Marvex.",
+                    duration: 4000,
+                },
+                {
+                    target: ".hero-section",
+                    text: "Aquí comienza todo. Nuestra sección Hero inmersiva te da la bienvenida al mundo del porcelanato premium.",
+                    duration: 5000,
+                    highlight: true,
+                },
+                {
+                    target: "#productos", // Assuming IDs exist, will need to verify/add
+                    text: "Explora nuestra colección exclusiva. Diseños que transforman espacios.",
+                    duration: 5000,
+                    highlight: true,
+                },
+                {
+                    target: "#calculadora",
+                    text: "Planifica tu proyecto con precisión. Nuestra calculadora inteligente te ayuda a estimar materiales.",
+                    duration: 5000,
+                    highlight: true,
+                },
+                {
+                    target: "#contacto",
+                    text: "¿Listo para transformar tu realidad? Contáctanos directamente desde aquí.",
+                    duration: 4000,
+                    highlight: true,
+                },
+                {
+                    target: "body",
+                    text: "Eso es todo. ¡Disfruta explorando Marvex!",
+                    duration: 3000,
+                },
+            ];
+
+            this.currentStep = 0;
+            this.isActive = false;
+            this.overlay = document.getElementById("site-tour-overlay");
+            this.textElement = document.getElementById("tour-text");
+            this.progressBar = document.getElementById("tour-progress-bar");
+            this.spotlight = null;
+
+            this.init();
+        }
+
+        init() {
+            document
+                .getElementById("start-tour-btn")
+                ?.addEventListener("click", () => this.start());
+            document
+                .getElementById("skip-tour")
+                ?.addEventListener("click", () => this.stop());
+
+            // Create spotlight element dynamically
+            this.spotlight = document.createElement("div");
+            this.spotlight.classList.add("tour-spotlight");
+            document.body.appendChild(this.spotlight);
+            this.spotlight.style.opacity = "0";
+        }
+
+        start() {
+            this.isActive = true;
+            this.currentStep = 0;
+            this.overlay.classList.remove("hidden");
+            this.nextStep();
+        }
+
+        stop() {
+            this.isActive = false;
+            this.overlay.classList.add("hidden");
+            this.spotlight.style.opacity = "0";
+            this.spotlight.style.display = "none";
+            // Reset scroll? Maybe not necessary
+        }
+
+        async nextStep() {
+            if (!this.isActive || this.currentStep >= this.steps.length) {
+                this.stop();
+                return;
+            }
+
+            const step = this.steps[this.currentStep];
+            this.updateProgress();
+
+            // Update Text with typing effect
+            this.typeText(step.text);
+
+            // Scroll and Highlight
+            if (step.target !== "body") {
+                const targetEl = document.querySelector(step.target);
+                if (targetEl) {
+                    // Scroll to element
+                    gsap.to(window, {
+                        duration: 1,
+                        scrollTo: { y: targetEl, offsetY: 100 },
+                        ease: "power2.inOut",
+                    });
+
+                    // Move spotlight
+                    if (step.highlight) {
+                        this.moveSpotlight(targetEl);
+                    } else {
+                        this.spotlight.style.opacity = "0";
+                    }
+                }
+            } else {
+                this.spotlight.style.opacity = "0";
+            }
+
+            // Wait for duration then next
+            await new Promise((r) => setTimeout(r, step.duration));
+
+            this.currentStep++;
+            this.nextStep();
+        }
+
+        moveSpotlight(element) {
+            const rect = element.getBoundingClientRect();
+            const scrollTop =
+                window.pageYOffset || document.documentElement.scrollTop;
+
+            this.spotlight.style.display = "block";
+            this.spotlight.style.width = `${rect.width + 20}px`;
+            this.spotlight.style.height = `${rect.height + 20}px`;
+            this.spotlight.style.top = `${rect.top + scrollTop - 10}px`;
+            this.spotlight.style.left = `${rect.left - 10}px`;
+            this.spotlight.style.opacity = "1";
+        }
+
+        typeText(text) {
+            this.textElement.textContent = "";
+            let i = 0;
+            const speed = 30; // ms per char
+
+            const type = () => {
+                if (i < text.length) {
+                    this.textElement.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            };
+            type();
+        }
+
+        updateProgress() {
+            const progress = ((this.currentStep + 1) / this.steps.length) * 100;
+            this.progressBar.style.width = `${progress}%`;
+        }
+    }
+
+    // Initialize on load
+    window.addEventListener("DOMContentLoaded", () => {
+        window.siteTour = new SiteTour();
+    });
+</script>

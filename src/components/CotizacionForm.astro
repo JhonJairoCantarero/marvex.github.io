@@ -3,18 +3,29 @@
 ---
 
 <!-- Formulario de Pantalla Completa -->
-<div id="cotizacionModal" class="fullscreen-form-overlay" style="display: none;">
+<div
+    id="cotizacionModal"
+    class="fullscreen-form-overlay"
+    style="display: none;"
+>
     <div class="fullscreen-form-container">
         <!-- Header del formulario -->
         <div class="form-header">
             <div class="form-header-content">
                 <div class="form-header-left">
                     <div class="form-logo">
-                        <img src="/src/assets/MARVEX.png" alt="Marvex" class="logo-img" onerror="this.style.display='none'">
+                        <img
+                            src="/src/assets/MARVEX.png"
+                            alt="Marvex"
+                            class="logo-img"
+                            onerror="this.style.display='none'"
+                        />
                     </div>
                     <div class="form-title-section">
                         <h1 class="form-main-title">Cotización Gratis</h1>
-                        <p class="form-main-subtitle">Solicita tu cotización personalizada de porcelanato</p>
+                        <p class="form-main-subtitle">
+                            Solicita tu cotización personalizada de porcelanato
+                        </p>
                     </div>
                 </div>
                 <button class="form-close-btn" id="closeModal">
@@ -22,7 +33,7 @@
                 </button>
             </div>
         </div>
-        
+
         <!-- Contenido principal del formulario -->
         <div class="form-main-content">
             <div class="form-wrapper">
@@ -32,11 +43,12 @@
                     </div>
                     <h2 class="intro-title">Obtén tu cotización en minutos</h2>
                     <p class="intro-description">
-                        Completa el formulario y recibe una cotización personalizada para tu proyecto de porcelanato. 
-                        Nuestro equipo te contactará en menos de 24 horas.
+                        Completa el formulario y recibe una cotización
+                        personalizada para tu proyecto de porcelanato. Nuestro
+                        equipo te contactará en menos de 24 horas.
                     </p>
                 </div>
-                
+
                 <form class="cotizacion-form" id="cotizacionForm">
                     <div class="form-section">
                         <h3 class="section-title">
@@ -49,35 +61,40 @@
                                     <i class="fas fa-user"></i>
                                     Nombre Completo
                                 </label>
-                                <input 
-                                    type="text" 
-                                    id="nombre" 
-                                    name="nombre" 
-                                    class="form-input" 
-                                    required 
+                                <input
+                                    type="text"
+                                    id="nombre"
+                                    name="nombre"
+                                    class="form-input"
+                                    required
                                     placeholder="Ingresa tu nombre completo"
-                                >
-                                <div class="form-feedback" id="nombre-feedback"></div>
+                                />
+                                <div class="form-feedback" id="nombre-feedback">
+                                </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="telefono" class="form-label">
                                     <i class="fas fa-phone"></i>
                                     Teléfono
                                 </label>
-                                <input 
-                                    type="tel" 
-                                    id="telefono" 
-                                    name="telefono" 
-                                    class="form-input" 
-                                    required 
+                                <input
+                                    type="tel"
+                                    id="telefono"
+                                    name="telefono"
+                                    class="form-input"
+                                    required
                                     placeholder="+504 9999-9999"
+                                />
+                                <div
+                                    class="form-feedback"
+                                    id="telefono-feedback"
                                 >
-                                <div class="form-feedback" id="telefono-feedback"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="form-section">
                         <h3 class="section-title">
                             <i class="fas fa-boxes"></i>
@@ -89,42 +106,54 @@
                                     <i class="fas fa-cube"></i>
                                     Cantidad de Cajas
                                 </label>
-                                <input 
-                                    type="number" 
-                                    id="cantidad" 
-                                    name="cantidad" 
-                                    class="form-input" 
-                                    required 
+                                <input
+                                    type="number"
+                                    id="cantidad"
+                                    name="cantidad"
+                                    class="form-input"
+                                    required
                                     min="1"
                                     placeholder="Número de cajas"
+                                />
+                                <div
+                                    class="form-feedback"
+                                    id="cantidad-feedback"
                                 >
-                                <div class="form-feedback" id="cantidad-feedback"></div>
+                                </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="ciudad" class="form-label">
                                     <i class="fas fa-map-marker-alt"></i>
                                     Ciudad o Municipio
                                 </label>
-                                <input 
-                                    type="text" 
-                                    id="ciudad" 
-                                    name="ciudad" 
-                                    class="form-input" 
-                                    required 
+                                <input
+                                    type="text"
+                                    id="ciudad"
+                                    name="ciudad"
+                                    class="form-input"
+                                    required
                                     placeholder="Tu ciudad"
-                                >
-                                <div class="form-feedback" id="ciudad-feedback"></div>
+                                />
+                                <div class="form-feedback" id="ciudad-feedback">
+                                </div>
                             </div>
                         </div>
-                        
+
                         <div class="form-group full-width">
                             <label for="departamento" class="form-label">
                                 <i class="fas fa-map"></i>
                                 Departamento
                             </label>
-                            <select id="departamento" name="departamento" class="form-select" required>
-                                <option value="">Selecciona tu departamento</option>
+                            <select
+                                id="departamento"
+                                name="departamento"
+                                class="form-select"
+                                required
+                            >
+                                <option value=""
+                                    >Selecciona tu departamento</option
+                                >
                                 <option value="Atlántida">Atlántida</option>
                                 <option value="Choluteca">Choluteca</option>
                                 <option value="Colón">Colón</option>
@@ -132,23 +161,36 @@
                                 <option value="Copán">Copán</option>
                                 <option value="Cortés">Cortés</option>
                                 <option value="El Paraíso">El Paraíso</option>
-                                <option value="Francisco Morazán">Francisco Morazán</option>
-                                <option value="Gracias a Dios">Gracias a Dios</option>
+                                <option value="Francisco Morazán"
+                                    >Francisco Morazán</option
+                                >
+                                <option value="Gracias a Dios"
+                                    >Gracias a Dios</option
+                                >
                                 <option value="Intibucá">Intibucá</option>
-                                <option value="Islas de la Bahía">Islas de la Bahía</option>
+                                <option value="Islas de la Bahía"
+                                    >Islas de la Bahía</option
+                                >
                                 <option value="La Paz">La Paz</option>
                                 <option value="Lempira">Lempira</option>
                                 <option value="Ocotepeque">Ocotepeque</option>
                                 <option value="Olancho">Olancho</option>
-                                <option value="Santa Bárbara">Santa Bárbara</option>
+                                <option value="Santa Bárbara"
+                                    >Santa Bárbara</option
+                                >
                                 <option value="Valle">Valle</option>
                                 <option value="Yoro">Yoro</option>
                                 <option value="Otro País">Otro País</option>
                             </select>
-                            <div class="form-feedback" id="departamento-feedback"></div>
+                            <div
+                                class="form-feedback"
+                                class="form-feedback"
+                                id="departamento-feedback"
+                            >
+                            </div>
                         </div>
                     </div>
-                    
+
                     <div class="form-section">
                         <h3 class="section-title">
                             <i class="fas fa-comment-dots"></i>
@@ -159,17 +201,18 @@
                                 <i class="fas fa-comment"></i>
                                 Mensaje (Opcional)
                             </label>
-                            <textarea 
-                                id="mensaje" 
-                                name="mensaje" 
-                                class="form-textarea" 
+                            <textarea
+                                id="mensaje"
+                                name="mensaje"
+                                class="form-textarea"
                                 rows="4"
                                 placeholder="Cuéntanos más sobre tu proyecto: tipo de porcelanato, área a cubrir, fecha estimada, etc."
                             ></textarea>
-                            <div class="form-feedback" id="mensaje-feedback"></div>
+                            <div class="form-feedback" id="mensaje-feedback">
+                            </div>
                         </div>
                     </div>
-                    
+
                     <div class="form-actions">
                         <button type="submit" class="form-submit-btn">
                             <span class="btn-text">
@@ -181,32 +224,48 @@
                                 Enviando solicitud...
                             </div>
                         </button>
-                        
+
                         <div class="form-guarantee">
                             <i class="fas fa-shield-alt"></i>
-                            <span>Tu información está protegida y será usada únicamente para contactarte</span>
+                            <span
+                                >Tu información está protegida y será usada
+                                únicamente para contactarte</span
+                            >
                         </div>
                     </div>
                 </form>
-                
-                <div class="form-success" id="formSuccess" style="display: none;">
+
+                <div
+                    class="form-success"
+                    id="formSuccess"
+                    style="display: none;"
+                >
                     <div class="success-content">
                         <div class="success-icon">
                             <i class="fas fa-check-circle"></i>
                         </div>
-                        <h3 class="success-title">¡Solicitud Enviada Exitosamente!</h3>
+                        <h3 class="success-title">
+                            ¡Solicitud Enviada Exitosamente!
+                        </h3>
                         <p class="success-description">
-                            Gracias por confiar en nosotros. Hemos recibido tu solicitud de cotización y 
-                            nuestro equipo se pondrá en contacto contigo en menos de 24 horas.
+                            Gracias por confiar en nosotros. Hemos recibido tu
+                            solicitud de cotización y nuestro equipo se pondrá
+                            en contacto contigo en menos de 24 horas.
                         </p>
                         <div class="success-details">
                             <div class="detail-item">
                                 <i class="fas fa-clock"></i>
-                                <span>Tiempo de respuesta: <strong>Menos de 24 horas</strong></span>
+                                <span
+                                    >Tiempo de respuesta: <strong
+                                        >Menos de 24 horas</strong
+                                    ></span
+                                >
                             </div>
                             <div class="detail-item">
                                 <i class="fas fa-phone"></i>
-                                <span>Te contactaremos al número proporcionado</span>
+                                <span
+                                    >Te contactaremos al número proporcionado</span
+                                >
                             </div>
                         </div>
                         <button class="success-btn" onclick="closeModal()">
@@ -221,36 +280,6 @@
 </div>
 
 <style>
-    /* Variables CSS para consistencia */
-    :root {
-        --primary-color: #8B4513;
-        --primary-light: #A0522D;
-        --primary-dark: #654321;
-        --secondary-color: #F5F5DC;
-        --accent-color: #D2691E;
-        --text-primary: #1a1a1a;
-        --text-secondary: #666666;
-        --text-light: #999999;
-        --background-white: #ffffff;
-        --background-light: #fafafa;
-        --background-gray: #f5f5f5;
-        --border-color: #e0e0e0;
-        --border-focus: #8B4513;
-        --success-color: #10b981;
-        --error-color: #ef4444;
-        --warning-color: #f59e0b;
-        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-        --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-        --radius-sm: 6px;
-        --radius-md: 8px;
-        --radius-lg: 12px;
-        --radius-xl: 16px;
-        --radius-2xl: 20px;
-    }
-
     /* Overlay de pantalla completa */
     .fullscreen-form-overlay {
         position: fixed;
@@ -258,7 +287,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: linear-gradient(135deg, rgba(139, 69, 19, 0.95) 0%, rgba(160, 82, 45, 0.95) 100%);
+        background: rgba(0, 0, 0, 0.8);
         backdrop-filter: blur(10px);
         z-index: 10000;
         display: flex;
@@ -279,7 +308,7 @@
         min-height: 100vh;
         display: flex;
         flex-direction: column;
-        background: var(--background-white);
+        background: var(--color-bg);
         position: relative;
         transform: translateY(20px);
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -292,8 +321,8 @@
 
     /* Header del formulario */
     .form-header {
-        background: linear-gradient(135deg, var(--background-white) 0%, var(--background-light) 100%);
-        border-bottom: 1px solid var(--border-color);
+        background: var(--color-surface);
+        border-bottom: 1px solid var(--color-border);
         box-shadow: var(--shadow-sm);
         position: sticky;
         top: 0;
@@ -321,10 +350,11 @@
         border-radius: var(--radius-lg);
         overflow: hidden;
         box-shadow: var(--shadow-md);
-        background: var(--background-white);
+        background: var(--color-surface);
         display: flex;
         align-items: center;
         justify-content: center;
+        border: 1px solid var(--color-border);
     }
 
     .logo-img {
@@ -340,11 +370,11 @@
     .form-main-title {
         font-size: 2rem;
         font-weight: 800;
-        color: var(--text-primary);
+        color: var(--color-text);
         margin: 0 0 4px 0;
-        font-family: 'Inter', 'Roboto', sans-serif;
+        font-family: var(--font-heading);
         letter-spacing: -0.025em;
-        background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+        background: var(--gradient-primary);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -352,15 +382,15 @@
 
     .form-main-subtitle {
         font-size: 1rem;
-        color: var(--text-secondary);
+        color: var(--color-text-muted);
         margin: 0;
         font-weight: 500;
     }
 
     .form-close-btn {
-        background: var(--background-white);
-        border: 2px solid var(--border-color);
-        color: var(--text-secondary);
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        color: var(--color-text-muted);
         font-size: 1.25rem;
         cursor: pointer;
         padding: 12px;
@@ -375,9 +405,9 @@
     }
 
     .form-close-btn:hover {
-        background: var(--error-color);
-        border-color: var(--error-color);
-        color: white;
+        background: rgba(239, 68, 68, 0.1);
+        border-color: #ef4444;
+        color: #ef4444;
         transform: rotate(90deg) scale(1.05);
         box-shadow: var(--shadow-lg);
     }
@@ -385,7 +415,7 @@
     /* Contenido principal */
     .form-main-content {
         flex: 1;
-        background: var(--background-light);
+        background: var(--color-bg);
         padding: 40px 0;
     }
 
@@ -400,22 +430,22 @@
         text-align: center;
         margin-bottom: 48px;
         padding: 40px 32px;
-        background: var(--background-white);
+        background: var(--color-surface);
         border-radius: var(--radius-2xl);
         box-shadow: var(--shadow-lg);
-        border: 1px solid var(--border-color);
+        border: 1px solid var(--color-border);
     }
 
     .intro-icon {
         width: 80px;
         height: 80px;
-        background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+        background: var(--gradient-primary);
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         margin: 0 auto 24px;
-        box-shadow: var(--shadow-lg);
+        box-shadow: var(--shadow-glow);
     }
 
     .intro-icon i {
@@ -426,14 +456,14 @@
     .intro-title {
         font-size: 2rem;
         font-weight: 700;
-        color: var(--text-primary);
+        color: var(--color-text);
         margin: 0 0 16px 0;
-        font-family: 'Inter', 'Roboto', sans-serif;
+        font-family: var(--font-heading);
     }
 
     .intro-description {
         font-size: 1.125rem;
-        color: var(--text-secondary);
+        color: var(--color-text-muted);
         margin: 0;
         line-height: 1.6;
         max-width: 600px;
@@ -442,16 +472,16 @@
 
     /* Formulario */
     .cotizacion-form {
-        background: var(--background-white);
+        background: var(--color-surface);
         border-radius: var(--radius-2xl);
         box-shadow: var(--shadow-xl);
-        border: 1px solid var(--border-color);
+        border: 1px solid var(--color-border);
         overflow: hidden;
     }
 
     .form-section {
         padding: 32px;
-        border-bottom: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--color-border);
     }
 
     .form-section:last-of-type {
@@ -461,18 +491,18 @@
     .section-title {
         font-size: 1.25rem;
         font-weight: 700;
-        color: var(--text-primary);
+        color: var(--color-text);
         margin: 0 0 24px 0;
-        font-family: 'Inter', 'Roboto', sans-serif;
+        font-family: var(--font-heading);
         display: flex;
         align-items: center;
         gap: 12px;
         padding-bottom: 12px;
-        border-bottom: 2px solid var(--background-gray);
+        border-bottom: 1px solid var(--color-border);
     }
 
     .section-title i {
-        color: var(--primary-color);
+        color: var(--color-primary);
         font-size: 1.125rem;
     }
 
@@ -495,16 +525,16 @@
     .form-label {
         font-size: 0.875rem;
         font-weight: 600;
-        color: var(--text-primary);
+        color: var(--color-text);
         margin-bottom: 8px;
-        font-family: 'Inter', 'Roboto', sans-serif;
+        font-family: var(--font-body);
         display: flex;
         align-items: center;
         gap: 8px;
     }
 
     .form-label i {
-        color: var(--primary-color);
+        color: var(--color-primary);
         width: 16px;
         text-align: center;
         font-size: 0.875rem;
@@ -515,12 +545,12 @@
     .form-textarea {
         width: 100%;
         padding: 16px 20px;
-        background: var(--background-white);
-        border: 2px solid var(--border-color);
+        background: var(--color-muted);
+        border: 1px solid var(--color-border);
         border-radius: var(--radius-lg);
-        color: var(--text-primary);
+        color: var(--color-text);
         font-size: 1rem;
-        font-family: 'Inter', 'Roboto', sans-serif;
+        font-family: var(--font-body);
         transition: all 0.3s ease;
         box-sizing: border-box;
         line-height: 1.5;
@@ -529,48 +559,54 @@
 
     .form-input::placeholder,
     .form-textarea::placeholder {
-        color: var(--text-light);
+        color: var(--color-text-muted);
         font-weight: 400;
+        opacity: 0.5;
     }
 
     .form-input:focus,
     .form-select:focus,
     .form-textarea:focus {
         outline: none;
-        border-color: var(--border-focus);
-        box-shadow: 0 0 0 4px rgba(139, 69, 19, 0.1);
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 4px rgba(209, 167, 112, 0.1);
         transform: translateY(-2px);
-        background: var(--background-white);
+        background: var(--color-surface);
     }
 
     .form-input.valid,
     .form-select.valid,
     .form-textarea.valid {
-        border-color: var(--success-color);
+        border-color: #10b981;
         box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
     }
 
     .form-input.error,
     .form-select.error,
     .form-textarea.error {
-        border-color: var(--error-color);
+        border-color: #ef4444;
         box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1);
     }
 
     .form-select {
         cursor: pointer;
         appearance: none;
-        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23a0a0a0' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
         background-position: right 16px center;
         background-repeat: no-repeat;
         background-size: 20px;
         padding-right: 48px;
     }
 
+    .form-select option {
+        background: var(--color-surface);
+        color: var(--color-text);
+    }
+
     .form-textarea {
         resize: vertical;
         min-height: 120px;
-        font-family: 'Inter', 'Roboto', sans-serif;
+        font-family: var(--font-body);
         line-height: 1.6;
         cursor: text;
     }
@@ -587,22 +623,23 @@
     }
 
     .form-feedback.success {
-        color: var(--success-color);
+        color: #10b981;
     }
 
     .form-feedback.error {
-        color: var(--error-color);
+        color: #ef4444;
     }
 
     /* Acciones del formulario */
     .form-actions {
         padding: 32px;
-        background: linear-gradient(135deg, var(--background-light) 0%, var(--background-gray) 100%);
+        background: rgba(255, 255, 255, 0.02);
         text-align: center;
+        border-top: 1px solid var(--color-border);
     }
 
     .form-submit-btn {
-        background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+        background: var(--gradient-primary);
         border: none;
         border-radius: var(--radius-xl);
         color: white;
@@ -611,7 +648,7 @@
         padding: 20px 40px;
         cursor: pointer;
         transition: all 0.3s ease;
-        font-family: 'Inter', 'Roboto', sans-serif;
+        font-family: var(--font-heading);
         text-transform: uppercase;
         letter-spacing: 0.5px;
         position: relative;
@@ -622,9 +659,9 @@
     }
 
     .form-submit-btn:hover {
-        background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-color) 100%);
         transform: translateY(-3px);
-        box-shadow: var(--shadow-2xl);
+        box-shadow: var(--shadow-glow);
+        filter: brightness(1.1);
     }
 
     .form-submit-btn:active {
@@ -635,6 +672,7 @@
         opacity: 0.7;
         cursor: not-allowed;
         transform: none;
+        filter: grayscale(1);
     }
 
     .btn-text {
@@ -661,8 +699,12 @@
     }
 
     @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
     }
 
     .form-guarantee {
@@ -670,29 +712,29 @@
         align-items: center;
         justify-content: center;
         gap: 8px;
-        color: var(--text-secondary);
+        color: var(--color-text-muted);
         font-size: 0.875rem;
         font-weight: 500;
     }
 
     .form-guarantee i {
-        color: var(--success-color);
+        color: #10b981;
         font-size: 1rem;
     }
 
     /* Estado de éxito */
     .form-success {
-        background: var(--background-white);
+        background: var(--color-surface);
         border-radius: var(--radius-2xl);
         box-shadow: var(--shadow-xl);
-        border: 1px solid var(--border-color);
+        border: 1px solid var(--color-border);
         overflow: hidden;
     }
 
     .success-content {
         text-align: center;
         padding: 60px 40px;
-        background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+        background: rgba(16, 185, 129, 0.05);
     }
 
     .success-icon {
@@ -701,28 +743,38 @@
 
     .success-icon i {
         font-size: 4rem;
-        color: var(--success-color);
+        color: #10b981;
         animation: bounce 0.6s ease-in-out;
     }
 
     @keyframes bounce {
-        0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-        40% { transform: translateY(-10px); }
-        60% { transform: translateY(-5px); }
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+            transform: translateY(0);
+        }
+        40% {
+            transform: translateY(-10px);
+        }
+        60% {
+            transform: translateY(-5px);
+        }
     }
 
     .success-title {
         font-size: 2rem;
         font-weight: 800;
         margin: 0 0 16px 0;
-        color: #166534;
-        font-family: 'Inter', 'Roboto', sans-serif;
+        color: #10b981;
+        font-family: var(--font-heading);
     }
 
     .success-description {
         font-size: 1.125rem;
         margin: 0 0 32px 0;
-        color: #15803d;
+        color: var(--color-text);
         line-height: 1.6;
         max-width: 500px;
         margin-left: auto;
@@ -744,21 +796,22 @@
         align-items: center;
         gap: 12px;
         padding: 12px 16px;
-        background: rgba(255, 255, 255, 0.7);
+        background: rgba(16, 185, 129, 0.1);
         border-radius: var(--radius-lg);
         font-size: 0.875rem;
-        color: #166534;
+        color: #10b981;
+        border: 1px solid rgba(16, 185, 129, 0.2);
     }
 
     .detail-item i {
-        color: var(--success-color);
+        color: #10b981;
         font-size: 1rem;
         width: 20px;
         text-align: center;
     }
 
     .success-btn {
-        background: var(--success-color);
+        background: #10b981;
         border: none;
         border-radius: var(--radius-lg);
         color: white;
@@ -784,11 +837,11 @@
         .form-wrapper {
             max-width: 700px;
         }
-        
+
         .form-main-title {
             font-size: 1.75rem;
         }
-        
+
         .intro-title {
             font-size: 1.75rem;
         }
@@ -798,94 +851,94 @@
         .form-header-content {
             padding: 16px 20px;
         }
-        
+
         .form-header-left {
             gap: 16px;
         }
-        
+
         .form-logo {
             width: 50px;
             height: 50px;
         }
-        
+
         .form-main-title {
             font-size: 1.5rem;
         }
-        
+
         .form-main-subtitle {
             font-size: 0.875rem;
         }
-        
+
         .form-close-btn {
             width: 40px;
             height: 40px;
             padding: 8px;
         }
-        
+
         .form-main-content {
             padding: 24px 0;
         }
-        
+
         .form-wrapper {
             padding: 0 20px;
         }
-        
+
         .form-intro {
             padding: 32px 24px;
             margin-bottom: 32px;
         }
-        
+
         .intro-icon {
             width: 60px;
             height: 60px;
         }
-        
+
         .intro-icon i {
             font-size: 1.5rem;
         }
-        
+
         .intro-title {
             font-size: 1.5rem;
         }
-        
+
         .intro-description {
             font-size: 1rem;
         }
-        
+
         .form-section {
             padding: 24px;
         }
-        
+
         .form-grid {
             grid-template-columns: 1fr;
             gap: 20px;
         }
-        
+
         .form-input,
         .form-select,
         .form-textarea {
             padding: 14px 16px;
             font-size: 0.875rem;
         }
-        
+
         .form-actions {
             padding: 24px;
         }
-        
+
         .form-submit-btn {
             padding: 16px 32px;
             font-size: 1rem;
             min-width: 240px;
         }
-        
+
         .success-content {
             padding: 40px 24px;
         }
-        
+
         .success-title {
             font-size: 1.75rem;
         }
-        
+
         .success-description {
             font-size: 1rem;
         }
@@ -895,98 +948,98 @@
         .form-header-content {
             padding: 12px 16px;
         }
-        
+
         .form-header-left {
             gap: 12px;
         }
-        
+
         .form-logo {
             width: 40px;
             height: 40px;
         }
-        
+
         .form-main-title {
             font-size: 1.25rem;
         }
-        
+
         .form-main-subtitle {
             font-size: 0.8rem;
         }
-        
+
         .form-close-btn {
             width: 36px;
             height: 36px;
             padding: 6px;
             font-size: 1rem;
         }
-        
+
         .form-wrapper {
             padding: 0 16px;
         }
-        
+
         .form-intro {
             padding: 24px 20px;
             margin-bottom: 24px;
         }
-        
+
         .intro-icon {
             width: 50px;
             height: 50px;
         }
-        
+
         .intro-icon i {
             font-size: 1.25rem;
         }
-        
+
         .intro-title {
             font-size: 1.25rem;
         }
-        
+
         .intro-description {
             font-size: 0.875rem;
         }
-        
+
         .form-section {
             padding: 20px;
         }
-        
+
         .section-title {
             font-size: 1.125rem;
         }
-        
+
         .form-input,
         .form-select,
         .form-textarea {
             padding: 12px 14px;
             font-size: 0.875rem;
         }
-        
+
         .form-actions {
             padding: 20px;
         }
-        
+
         .form-submit-btn {
             padding: 14px 24px;
             font-size: 0.875rem;
             min-width: 200px;
         }
-        
+
         .success-content {
             padding: 32px 20px;
         }
-        
+
         .success-title {
             font-size: 1.5rem;
         }
-        
+
         .success-description {
             font-size: 0.875rem;
         }
-        
+
         .success-details {
             gap: 12px;
         }
-        
+
         .detail-item {
             padding: 10px 12px;
             font-size: 0.8rem;
@@ -996,181 +1049,226 @@
 
 <script>
     // Importar Supabase y EmailJS
-    import { createClient } from '@supabase/supabase-js';
-    import emailjs from '@emailjs/browser';
-    import { EMAILJS_CONFIG } from '../config/emailjs.js';
-    
+    import { createClient } from "@supabase/supabase-js";
+    // @ts-ignore
+    import emailjs from "@emailjs/browser";
+    // @ts-ignore
+    import { EMAILJS_CONFIG } from "../config/emailjs.js";
+
     // Configurar cliente de Supabase
-    const supabaseUrl = 'https://wsyzglahgrbfdvrsriah.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndzeXpnbGFoZ3JiZmR2cnNyaWFoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEyNTM0MzYsImV4cCI6MjA2NjgyOTQzNn0.zoxd3Z87C8nyU5H0fp0AJyO4Klp9uf_KmkvJAtOMAhY';
+    const supabaseUrl = "https://wsyzglahgrbfdvrsriah.supabase.co";
+    const supabaseKey =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndzeXpnbGFoZ3JiZmR2cnNyaWFoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEyNTM0MzYsImV4cCI6MjA2NjgyOTQzNn0.zoxd3Z87C8nyU5H0fp0AJyO4Klp9uf_KmkvJAtOMAhY";
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const modal = document.getElementById('cotizacionModal');
-        const closeBtn = document.getElementById('closeModal');
-        const form = document.getElementById('cotizacionForm');
-        const submitBtn = form.querySelector('.form-submit-btn');
-        const btnText = submitBtn.querySelector('.btn-text');
-        const btnLoading = submitBtn.querySelector('.btn-loading');
-        const formSuccess = document.getElementById('formSuccess');
+    document.addEventListener("DOMContentLoaded", function () {
+        const modal = document.getElementById("cotizacionModal");
+        const closeBtn = document.getElementById("closeModal");
+        const form = document.getElementById(
+            "cotizacionForm",
+        ) as HTMLFormElement;
+        const submitBtn = form?.querySelector(
+            ".form-submit-btn",
+        ) as HTMLButtonElement;
+        const btnText = submitBtn?.querySelector(".btn-text") as HTMLElement;
+        const btnLoading = submitBtn?.querySelector(
+            ".btn-loading",
+        ) as HTMLElement;
+        const formSuccess = document.getElementById("formSuccess");
+
+        if (
+            !modal ||
+            !form ||
+            !submitBtn ||
+            !btnText ||
+            !btnLoading ||
+            !formSuccess
+        ) {
+            console.error("Elementos del formulario no encontrados");
+            return;
+        }
 
         // Función para abrir el formulario de pantalla completa
-        window.openCotizacionModal = function() {
-            modal.style.display = 'flex';
+        (window as any).openCotizacionModal = function () {
+            modal.style.display = "flex";
             setTimeout(() => {
-                modal.classList.add('show');
+                modal.classList.add("show");
             }, 10);
-            document.body.style.overflow = 'hidden';
-            
+            document.body.style.overflow = "hidden";
+
             // Scroll suave al inicio
             setTimeout(() => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                window.scrollTo({ top: 0, behavior: "smooth" });
             }, 100);
         };
 
         // Función para cerrar el formulario
-        window.closeModal = function() {
-            modal.classList.remove('show');
+        const closeModal = function () {
+            modal.classList.remove("show");
             setTimeout(() => {
-                modal.style.display = 'none';
-                document.body.style.overflow = 'auto';
+                modal.style.display = "none";
+                document.body.style.overflow = "auto";
                 // Resetear formulario
                 form.reset();
-                form.style.display = 'block';
-                formSuccess.style.display = 'none';
-                btnText.style.display = 'flex';
-                btnLoading.style.display = 'none';
+                form.style.display = "block";
+                formSuccess.style.display = "none";
+                btnText.style.display = "flex";
+                btnLoading.style.display = "none";
                 submitBtn.disabled = false;
-                
+
                 // Limpiar validaciones
-                const inputs = form.querySelectorAll('input, select, textarea');
-                inputs.forEach(input => {
-                    input.classList.remove('valid', 'error');
-                    const feedback = document.getElementById(input.name + '-feedback');
+                const inputs = form.querySelectorAll("input, select, textarea");
+                inputs.forEach((input) => {
+                    input.classList.remove("valid", "error");
+                    const feedback = document.getElementById(
+                        (input as HTMLInputElement).name + "-feedback",
+                    );
                     if (feedback) {
-                        feedback.textContent = '';
-                        feedback.className = 'form-feedback';
+                        feedback.textContent = "";
+                        feedback.className = "form-feedback";
                     }
                 });
             }, 400);
-        }
+        };
+        (window as any).closeModal = closeModal;
 
         // Event listeners
-        closeBtn.addEventListener('click', closeModal);
-        
+        if (closeBtn) {
+            closeBtn.addEventListener("click", closeModal);
+        }
+
         // Cerrar con tecla ESC
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && modal.classList.contains('show')) {
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape" && modal.classList.contains("show")) {
                 closeModal();
             }
         });
 
         // Validación en tiempo real mejorada
-        function validateField(field) {
+        function validateField(
+            field: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement,
+        ) {
             const value = field.value.trim();
-            const feedback = document.getElementById(field.name + '-feedback');
-            
-            if (field.hasAttribute('required') && !value) {
-                field.classList.remove('valid');
-                field.classList.add('error');
+            const feedback = document.getElementById(field.name + "-feedback");
+
+            if (field.hasAttribute("required") && !value) {
+                field.classList.remove("valid");
+                field.classList.add("error");
                 if (feedback) {
-                    feedback.textContent = 'Este campo es requerido';
-                    feedback.className = 'form-feedback error';
+                    feedback.textContent = "Este campo es requerido";
+                    feedback.className = "form-feedback error";
                 }
                 return false;
             }
-            
+
             // Validaciones específicas mejoradas
             let isValid = true;
-            let message = '';
-            
+            let message = "";
+
             switch (field.name) {
-                case 'nombre':
+                case "nombre":
                     if (value && value.length < 2) {
                         isValid = false;
-                        message = 'El nombre debe tener al menos 2 caracteres';
-                    } else if (value && !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(value)) {
+                        message = "El nombre debe tener al menos 2 caracteres";
+                    } else if (
+                        value &&
+                        !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(value)
+                    ) {
                         isValid = false;
-                        message = 'El nombre solo puede contener letras y espacios';
+                        message =
+                            "El nombre solo puede contener letras y espacios";
                     }
                     break;
-                case 'telefono':
+                case "telefono":
                     const phoneRegex = /^[+]?[0-9\s\-\(\)]{8,15}$/;
                     if (value && !phoneRegex.test(value)) {
                         isValid = false;
-                        message = 'Formato de teléfono inválido (8-15 dígitos)';
+                        message = "Formato de teléfono inválido (8-15 dígitos)";
                     }
                     break;
-                case 'cantidad':
-                    if (value && (isNaN(value) || parseInt(value) < 1 || parseInt(value) > 10000)) {
+                case "cantidad":
+                    if (
+                        value &&
+                        (isNaN(Number(value)) ||
+                            parseInt(value) < 1 ||
+                            parseInt(value) > 10000)
+                    ) {
                         isValid = false;
-                        message = 'Debe ser un número entre 1 y 10,000';
+                        message = "Debe ser un número entre 1 y 10,000";
                     }
                     break;
-                case 'ciudad':
+                case "ciudad":
                     if (value && value.length < 2) {
                         isValid = false;
-                        message = 'La ciudad debe tener al menos 2 caracteres';
+                        message = "La ciudad debe tener al menos 2 caracteres";
                     }
                     break;
-                case 'departamento':
-                    if (value === '') {
+                case "departamento":
+                    if (value === "") {
                         isValid = false;
-                        message = 'Por favor selecciona un departamento';
+                        message = "Por favor selecciona un departamento";
                     }
                     break;
             }
-            
+
             if (isValid && value) {
-                field.classList.remove('error');
-                field.classList.add('valid');
+                field.classList.remove("error");
+                field.classList.add("valid");
                 if (feedback) {
-                    feedback.textContent = '✓ Válido';
-                    feedback.className = 'form-feedback success';
+                    feedback.textContent = "✓ Válido";
+                    feedback.className = "form-feedback success";
                 }
             } else if (!isValid) {
-                field.classList.remove('valid');
-                field.classList.add('error');
+                field.classList.remove("valid");
+                field.classList.add("error");
                 if (feedback) {
                     feedback.textContent = message;
-                    feedback.className = 'form-feedback error';
+                    feedback.className = "form-feedback error";
                 }
             } else {
-                field.classList.remove('valid', 'error');
+                field.classList.remove("valid", "error");
                 if (feedback) {
-                    feedback.textContent = '';
-                    feedback.className = 'form-feedback';
+                    feedback.textContent = "";
+                    feedback.className = "form-feedback";
                 }
             }
-            
+
             return isValid;
         }
 
         // Aplicar validación a todos los campos
-        const inputs = form.querySelectorAll('input, select, textarea');
-        inputs.forEach(input => {
-            input.addEventListener('blur', () => validateField(input));
-            input.addEventListener('input', () => {
-                if (input.classList.contains('error')) {
-                    validateField(input);
+        const inputs = form.querySelectorAll("input, select, textarea");
+        inputs.forEach((input) => {
+            const inputEl = input as
+                | HTMLInputElement
+                | HTMLSelectElement
+                | HTMLTextAreaElement;
+            inputEl.addEventListener("blur", () => validateField(inputEl));
+            inputEl.addEventListener("input", () => {
+                if (inputEl.classList.contains("error")) {
+                    validateField(inputEl);
                 }
             });
-            
+
             // Validación en tiempo real para campos de texto
-            if (input.type === 'text' || input.type === 'tel' || input.type === 'number') {
-                input.addEventListener('input', () => {
-                    if (input.value.length > 0) {
-                        validateField(input);
+            if (
+                inputEl.type === "text" ||
+                inputEl.type === "tel" ||
+                inputEl.type === "number"
+            ) {
+                inputEl.addEventListener("input", () => {
+                    if (inputEl.value.length > 0) {
+                        validateField(inputEl);
                     }
                 });
             }
         });
 
         // Función para enviar datos a Supabase
-        async function enviarCotizacion(datos) {
+        async function enviarCotizacion(datos: any) {
             try {
                 const { data, error } = await supabase
-                    .from('cotizacion')
+                    .from("cotizacion")
                     .insert([
                         {
                             nombre: datos.nombre,
@@ -1178,140 +1276,156 @@
                             cantidad: datos.cantidad,
                             ciudad: datos.ciudad,
                             departamento: datos.departamento,
-                            mensaje: datos.mensaje || null
-                        }
+                            mensaje: datos.mensaje || null,
+                        },
                     ]);
 
                 if (error) {
-                    console.error('Error al guardar en Supabase:', error);
+                    console.error("Error al guardar en Supabase:", error);
                     throw error;
                 }
 
-                console.log('Datos guardados exitosamente:', data);
+                console.log("Datos guardados exitosamente:", data);
                 return { success: true, data };
             } catch (error) {
-                console.error('Error en el envío:', error);
+                console.error("Error en el envío:", error);
                 return { success: false, error };
             }
         }
 
         // Enviar correo llamando a nuestro endpoint backend (sin servicios externos en el navegador)
-        async function enviarNotificacionCorreo(datos) {
+        async function enviarNotificacionCorreo(datos: any) {
             try {
-                const resp = await fetch('/api/send-email', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(datos)
+                const resp = await fetch("/api/send-email", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(datos),
                 });
                 const json = await resp.json();
                 if (!resp.ok || !json?.ok) {
-                    throw new Error(json?.error || 'Error enviando correo');
+                    throw new Error(json?.error || "Error enviando correo");
                 }
-                console.log('Correo enviado, id:', json.id);
+                console.log("Correo enviado, id:", json.id);
                 return { success: true };
             } catch (error) {
-                console.error('Error al enviar notificación:', error);
+                console.error("Error al enviar notificación:", error);
                 return { success: false, error };
             }
         }
 
         // Manejo del formulario mejorado
-        form.addEventListener('submit', async function(e) {
+        form.addEventListener("submit", async function (e) {
             e.preventDefault();
-            
+
             // Validar todos los campos
             let isFormValid = true;
-            inputs.forEach(input => {
-                if (!validateField(input)) {
+            inputs.forEach((input) => {
+                if (!validateField(input as HTMLInputElement)) {
                     isFormValid = false;
                 }
             });
-            
+
             if (!isFormValid) {
                 // Scroll al primer campo con error
-                const firstError = form.querySelector('.error');
+                const firstError = form.querySelector(".error") as HTMLElement;
                 if (firstError) {
-                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    firstError.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center",
+                    });
                     firstError.focus();
                 }
                 return;
             }
-            
+
             // Mostrar estado de carga
-            btnText.style.display = 'none';
-            btnLoading.style.display = 'flex';
+            btnText.style.display = "none";
+            btnLoading.style.display = "flex";
             submitBtn.disabled = true;
-            
+
             try {
                 // Recopilar datos del formulario
                 const formData = new FormData(form);
                 const datos = Object.fromEntries(formData);
-                
-                console.log('Enviando datos:', datos);
-                
+
+                console.log("Enviando datos:", datos);
+
                 // Enviar a Supabase
                 const resultadoSupabase = await enviarCotizacion(datos);
-                
+
                 if (resultadoSupabase.success) {
                     // Enviar notificación por correo
                     await enviarNotificacionCorreo(datos);
-                    
+
                     // Mostrar mensaje de éxito
-                    form.style.display = 'none';
-                    formSuccess.style.display = 'block';
-                    
+                    form.style.display = "none";
+                    formSuccess.style.display = "block";
+
                     // Scroll al mensaje de éxito
                     setTimeout(() => {
-                        formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        formSuccess.scrollIntoView({
+                            behavior: "smooth",
+                            block: "center",
+                        });
                     }, 100);
-                    
+
                     // Auto-cerrar después de 8 segundos
                     setTimeout(() => {
                         closeModal();
                     }, 8000);
                 } else {
-                    throw new Error('Error al guardar en la base de datos');
+                    throw new Error("Error al guardar en la base de datos");
                 }
-                
             } catch (error) {
-                console.error('Error en el envío:', error);
-                
+                console.error("Error en el envío:", error);
+
                 // Mostrar mensaje de error
-                btnText.style.display = 'flex';
-                btnLoading.style.display = 'none';
+                btnText.style.display = "flex";
+                btnLoading.style.display = "none";
                 submitBtn.disabled = false;
-                
+
                 // Mostrar alerta de error
-                alert('Hubo un error al enviar tu solicitud. Por favor, inténtalo de nuevo o contacta directamente al +504 9999-9999');
+                alert(
+                    "Hubo un error al enviar tu solicitud. Por favor, inténtalo de nuevo o contacta directamente al +504 9999-9999",
+                );
             }
         });
 
         // Mejorar la experiencia de navegación con teclado
         inputs.forEach((input, index) => {
-            input.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' && index < inputs.length - 1) {
+            input.addEventListener("keydown", function (e) {
+                const keyboardEvent = e as KeyboardEvent;
+                if (
+                    keyboardEvent.key === "Enter" &&
+                    index < inputs.length - 1
+                ) {
                     e.preventDefault();
-                    inputs[index + 1].focus();
+                    (inputs[index + 1] as HTMLElement).focus();
                 }
             });
         });
 
         // Animación de entrada para los campos
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, { threshold: 0.1 });
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        (entry.target as HTMLElement).style.opacity = "1";
+                        (entry.target as HTMLElement).style.transform =
+                            "translateY(0)";
+                    }
+                });
+            },
+            { threshold: 0.1 },
+        );
 
         // Aplicar animación a los grupos de formulario
-        const formGroups = form.querySelectorAll('.form-group');
+        const formGroups = form.querySelectorAll(".form-group");
         formGroups.forEach((group, index) => {
-            group.style.opacity = '0';
-            group.style.transform = 'translateY(20px)';
-            group.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+            const groupEl = group as HTMLElement;
+            groupEl.style.opacity = "0";
+            groupEl.style.transform = "translateY(20px)";
+            groupEl.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
             observer.observe(group);
         });
     });

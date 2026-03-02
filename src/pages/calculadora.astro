@@ -1,0 +1,1039 @@
+---
+// Página Calculadora de Porcelanato - Marvex
+import Layout from "../layouts/Layout.astro";
+import MarvexLogo from "../components/MarvexLogo.astro";
+
+// Importar imágenes del porcelanato
+import ivoryPlain from "../assets/portafolio/IVORY PLAIN.png";
+import dynaBeige from "../assets/portafolio/DYNA BEIGE.png";
+import fiesta from "../assets/portafolio/FIESTA.png";
+import stripe from "../assets/portafolio/STRIPE.png";
+---
+
+<Layout title="Calculadora de Porcelanato - Marvex">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet"
+    />
+    <script is:inline>
+        // Forzar tema claro en la calculadora para mantener fondo blanco
+        document.documentElement.setAttribute("data-theme", "light");
+        try {
+            localStorage.setItem("theme", "light");
+        } catch (err) {
+            console.warn("No se pudo guardar el tema en localStorage", err);
+        }
+    </script>
+    <main class="calculadora-page">
+        <!-- Header simple -->
+        <header class="calculadora-header">
+            <div class="container">
+                <div class="header-content">
+                    <img
+                        src="/favicon-marvex.png"
+                        alt="Marvex"
+                        class="header-favicon"
+                    />
+                    <h1 class="page-title">Estimador de Porcelanato</h1>
+                </div>
+            </div>
+        </header>
+
+        <!-- Sección principal de la calculadora -->
+        <section class="calculadora-section">
+            <div class="container">
+                <div class="calculadora-container">
+                    <!-- Panel izquierdo - Formulario -->
+                    <div class="calculadora-form-panel">
+                        <form class="calculadora-form" id="calculadoraForm">
+                            <!-- Dimensiones del espacio -->
+                            <div class="form-section">
+                                <h3>Dimensiones del Espacio</h3>
+
+                                <!-- Selector de método de cálculo -->
+                                <div class="calculation-method">
+                                    <div class="method-option">
+                                        <input
+                                            type="radio"
+                                            id="method-dimensions"
+                                            name="calculation_method"
+                                            value="dimensions"
+                                            checked
+                                        />
+                                        <label for="method-dimensions"
+                                            >Por dimensiones (Largo × Ancho)</label
+                                        >
+                                    </div>
+                                    <div class="method-option">
+                                        <input
+                                            type="radio"
+                                            id="method-area"
+                                            name="calculation_method"
+                                            value="area"
+                                        />
+                                        <label for="method-area"
+                                            >Por área total (m²)</label
+                                        >
+                                    </div>
+                                </div>
+
+                                <!-- Campos por dimensiones -->
+                                <div class="form-grid" id="dimensions-inputs">
+                                    <div class="form-group">
+                                        <label for="largo">Largo (m)</label>
+                                        <input
+                                            type="number"
+                                            id="largo"
+                                            name="largo"
+                                            step="0.1"
+                                            min="0.1"
+                                        />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="ancho">Ancho (m)</label>
+                                        <input
+                                            type="number"
+                                            id="ancho"
+                                            name="ancho"
+                                            step="0.1"
+                                            min="0.1"
+                                        />
+                                    </div>
+                                </div>
+
+                                <!-- Campo por área total -->
+                                <div
+                                    class="form-group"
+                                    id="area-input"
+                                    style="display: none;"
+                                >
+                                    <label for="area_total"
+                                        >Área Total (m²)</label
+                                    >
+                                    <input
+                                        type="number"
+                                        id="area_total"
+                                        name="area_total"
+                                        step="0.1"
+                                        min="0.1"
+                                    />
+                                </div>
+                            </div>
+
+                            <!-- Tipo de porcelanato -->
+                            <div class="form-section">
+                                <h3>Porcelanato</h3>
+
+                                <!-- Selector de tamaño -->
+                                <div class="size-selector">
+                                    <div class="size-option">
+                                        <input
+                                            type="radio"
+                                            id="size-60x60"
+                                            name="porcelanato_size"
+                                            value="60x60"
+                                            checked
+                                        />
+                                        <label for="size-60x60"
+                                            >60×60 cm (0.36 m²)</label
+                                        >
+                                    </div>
+                                    <div class="size-option">
+                                        <input
+                                            type="radio"
+                                            id="size-60x120"
+                                            name="porcelanato_size"
+                                            value="60x120"
+                                        />
+                                        <label for="size-60x120"
+                                            >60×120 cm (0.72 m²)</label
+                                        >
+                                    </div>
+                                </div>
+
+                                <div class="product-selector">
+                                    <div
+                                        class="product-option"
+                                        data-product="ivory"
+                                    >
+                                        <img
+                                            src={ivoryPlain.src}
+                                            alt="Ivory Plain"
+                                        />
+                                        <div class="product-info">
+                                            <h4>Ivory Plain</h4>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="product-option"
+                                        data-product="dyna"
+                                    >
+                                        <img
+                                            src={dynaBeige.src}
+                                            alt="Dyna Beige"
+                                        />
+                                        <div class="product-info">
+                                            <h4>Dyna Beige</h4>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="product-option"
+                                        data-product="fiesta"
+                                    >
+                                        <img src={fiesta.src} alt="Fiesta" />
+                                        <div class="product-info">
+                                            <h4>Fiesta</h4>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="product-option"
+                                        data-product="stripe"
+                                    >
+                                        <img src={stripe.src} alt="Stripe" />
+                                        <div class="product-info">
+                                            <h4>Stripe</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="calculate-btn">
+                                <i class="fas fa-calculator"></i>
+                                Calcular
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Panel derecho - Resultados -->
+                    <div class="calculadora-results-panel">
+                        <div class="results-header">
+                            <h2>Resultados</h2>
+                        </div>
+
+                        <div class="results-content" id="resultsContent">
+                            <div class="no-results">
+                                <i class="fas fa-calculator"></i>
+                                <h3>Ingresa los datos</h3>
+                                <p>Completa el formulario para calcular</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</Layout>
+
+<style>
+    /* Reset y base */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: var(--font-body);
+        line-height: 1.6;
+        color: var(--color-text);
+        background: var(--color-bg);
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    .container {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Header simple */
+    .calculadora-header {
+        background: var(--color-surface);
+        color: var(--color-text);
+        padding: 1rem 0;
+        text-align: center;
+        border-bottom: 1px solid var(--color-border);
+        min-height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .header-content {
+        max-width: 1000px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .header-favicon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .page-title {
+        font-size: 1.5rem;
+        font-weight: 800;
+        margin: 0;
+        color: var(--color-text);
+        font-family: var(--font-heading);
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    /* Sección principal simple */
+    .calculadora-section {
+        background: var(--color-bg);
+        padding: 0.5rem 0;
+        min-height: calc(100vh - 80px);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .calculadora-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 0 1rem;
+        flex: 1;
+        min-height: 0;
+    }
+
+    /* Panel del formulario simple */
+    .calculadora-form-panel {
+        background: var(--color-surface);
+        border-radius: 12px;
+        padding: 1rem;
+        box-shadow: var(--shadow-md);
+        border: 1px solid var(--color-border);
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        max-height: 100%;
+        margin: 0 0.5rem;
+    }
+
+    .form-section {
+        margin-bottom: 1.5rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .form-section h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--color-text);
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: var(--font-heading);
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+
+    .form-group label {
+        font-weight: 600;
+        color: var(--color-text);
+        margin-bottom: 0.25rem;
+        font-size: 0.85rem;
+    }
+
+    .form-group input,
+    .form-group select {
+        padding: 0.5rem;
+        border: 1px solid var(--color-border);
+        border-radius: 4px;
+        font-size: 0.85rem;
+        background: var(--color-muted);
+        color: var(--color-text);
+        font-weight: 500;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+        outline: none;
+        border-color: var(--color-primary);
+        background: var(--color-surface);
+        color: var(--color-text);
+    }
+
+    /* Selector de método de cálculo simple */
+    .calculation-method {
+        display: flex;
+        flex-direction: column;
+        gap: 0.125rem;
+        margin-bottom: 0.5rem;
+        padding: 0.5rem;
+        background: var(--color-muted);
+        border-radius: 6px;
+        border: 1px solid var(--color-border);
+    }
+
+    .method-option {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        cursor: pointer;
+        padding: 0.25rem;
+        border-radius: 4px;
+        border: 1px solid transparent;
+        position: relative;
+    }
+
+    .method-option input[type="radio"] {
+        width: 16px;
+        height: 16px;
+        margin: 0;
+        accent-color: var(--color-primary);
+        cursor: pointer;
+    }
+
+    .method-option label {
+        margin: 0;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--color-text);
+        cursor: pointer;
+    }
+
+    /* Selector de tamaño de porcelanato mejorado */
+    .size-selector {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+    }
+
+    .size-option {
+        position: relative;
+    }
+
+    .size-option input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+    }
+
+    .size-option label {
+        display: block;
+        padding: 1rem;
+        background: var(--color-muted);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        text-align: center;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: var(--color-text);
+    }
+
+    .size-option input[type="radio"]:checked + label {
+        border-color: var(--color-primary);
+        background: rgba(209, 167, 112, 0.1);
+        box-shadow: 0 0 0 1px var(--color-primary);
+    }
+
+    .size-option input[type="radio"]:focus + label {
+        box-shadow: 0 0 0 2px rgba(209, 167, 112, 0.3);
+    }
+
+    /* Selector de productos */
+    .product-selector {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+    }
+
+    .product-option {
+        border: 1px solid var(--color-border);
+        border-radius: 6px;
+        padding: 0.75rem;
+        cursor: pointer;
+        background: var(--color-muted);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        position: relative;
+    }
+
+    .product-option.selected {
+        border-color: var(--color-primary);
+        background: rgba(209, 167, 112, 0.1);
+    }
+
+    .product-option img {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 4px;
+        border: 1px solid var(--color-border);
+        position: relative;
+        z-index: 1;
+    }
+
+    .product-info {
+        position: relative;
+        z-index: 1;
+    }
+
+    .product-info h4 {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--color-text);
+        margin: 0;
+    }
+
+    /* Botón de calcular simple */
+    .calculate-btn {
+        width: 100%;
+        background: var(--gradient-primary);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 1rem;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-top: 1rem;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-md);
+        font-family: var(--font-heading);
+    }
+
+    .calculate-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+        filter: brightness(1.1);
+    }
+
+    .calculate-btn:active {
+        transform: translateY(0);
+    }
+
+    /* Panel de resultados simple */
+    .calculadora-results-panel {
+        background: var(--color-surface);
+        border-radius: 12px;
+        padding: 1rem;
+        box-shadow: var(--shadow-md);
+        border: 1px solid var(--color-border);
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        max-height: 100%;
+        margin: 0 0.5rem;
+    }
+
+    .results-header {
+        margin-bottom: 2rem;
+        text-align: center;
+        position: relative;
+    }
+
+    .results-header h2 {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--color-text);
+        margin: 0;
+        letter-spacing: -0.025em;
+        position: relative;
+        font-family: var(--font-heading);
+    }
+
+    .no-results {
+        text-align: center;
+        padding: 3rem 2rem;
+        color: var(--color-text-muted);
+        background: var(--color-muted);
+        border-radius: 10px;
+        border: 1px dashed var(--color-border);
+    }
+
+    .no-results i {
+        font-size: 4rem;
+        color: var(--color-text-muted);
+        margin-bottom: 1rem;
+        opacity: 0.5;
+    }
+
+    .no-results h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: var(--color-text);
+        font-weight: 700;
+    }
+
+    .no-results p {
+        font-size: 1rem;
+        color: var(--color-text-muted);
+    }
+
+    /* Resultados */
+    .results-display {
+        display: none;
+    }
+
+    .results-display.show {
+        display: block;
+    }
+
+    .result-item {
+        background: var(--color-muted);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        border-left: 4px solid var(--color-primary);
+        box-shadow: var(--shadow-sm);
+        transition: all 0.3s ease;
+        opacity: 0;
+        transform: translateY(10px);
+        border: 1px solid var(--color-border);
+        border-left-width: 4px;
+    }
+
+    .result-item.animate-in {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .result-item h4 {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--color-text);
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .result-item .value {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--color-primary);
+        line-height: 1;
+    }
+
+    .result-item .unit {
+        font-size: 1.2rem;
+        color: var(--color-text-muted);
+        margin-left: 0.5rem;
+        font-weight: 600;
+    }
+
+    .cta-section {
+        margin-top: 2rem;
+        padding: 2rem;
+        background: var(--color-muted);
+        border-radius: 10px;
+        text-align: center;
+        border: 1px solid var(--color-border);
+    }
+
+    .cta-section h4 {
+        color: var(--color-primary);
+        margin-bottom: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    .cta-section button {
+        background: var(--color-primary);
+        color: white;
+        border: 1px solid var(--color-primary);
+        padding: 14px 28px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 700;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-md);
+    }
+
+    /* Responsive mejorado */
+    @media (max-width: 1024px) {
+        .calculadora-container {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .calculadora-form-panel {
+            max-width: 100%;
+            width: 100%;
+        }
+
+        .calculadora-form-panel,
+        .calculadora-results-panel {
+            max-height: none;
+            padding: 1rem;
+        }
+
+        .calculadora-section {
+            padding: 1rem 0;
+        }
+
+        .page-title {
+            font-size: 1.25rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            padding: 0 1rem;
+        }
+
+        .calculadora-header {
+            padding: 1.5rem 0;
+            min-height: 100px;
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+        }
+
+        .header-favicon {
+            width: 35px;
+            height: 35px;
+        }
+
+        .calculadora-form-panel,
+        .calculadora-results-panel {
+            padding: 1.5rem;
+            border-radius: 16px;
+            margin: 0 0.5rem;
+        }
+
+        .form-grid {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .product-selector {
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+
+        .calculation-method,
+        .size-selector {
+            flex-direction: column;
+            gap: 0.75rem;
+            padding: 1.5rem;
+        }
+
+        .calculadora-section {
+            padding: 2rem 0;
+        }
+
+        .result-item {
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .result-item .value {
+            font-size: 2rem;
+        }
+
+        .cta-section {
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .form-section h3 {
+            font-size: 1.125rem;
+            margin-bottom: 1.5rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .page-title {
+            font-size: 1.25rem;
+        }
+
+        .calculadora-header {
+            padding: 1rem 0;
+            min-height: 80px;
+        }
+
+        .header-favicon {
+            width: 30px;
+            height: 30px;
+        }
+
+        .calculadora-form-panel,
+        .calculadora-results-panel {
+            padding: 1.25rem;
+            border-radius: 12px;
+            margin: 0 0.25rem;
+        }
+
+        .product-selector {
+            grid-template-columns: 1fr;
+            gap: 0.75rem;
+        }
+
+        .calculation-method,
+        .size-selector {
+            padding: 1rem;
+        }
+
+        .result-item {
+            padding: 1.25rem;
+        }
+
+        .result-item .value {
+            font-size: 1.5rem;
+        }
+
+        .no-results {
+            padding: 4rem 1.5rem;
+        }
+
+        .cta-section {
+            padding: 1.5rem;
+        }
+
+        .form-section h3 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .calculadora-section {
+            padding: 1.5rem 0;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Cargar script de Lottie
+        const script = document.createElement("script");
+        script.src =
+            "https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js";
+        script.onload = function () {
+            // Inicializar animación Phoenix
+            const phoenixContainer =
+                document.getElementById("phoenixAnimation");
+            if (phoenixContainer && (window as any).lottie) {
+                (window as any).lottie.loadAnimation({
+                    container: phoenixContainer,
+                    renderer: "svg",
+                    loop: true,
+                    autoplay: true,
+                    path: "/Phoenix.json",
+                });
+            }
+        };
+        document.head.appendChild(script);
+        const form = document.getElementById("calculadoraForm");
+        const resultsContent = document.getElementById("resultsContent");
+        const productOptions = document.querySelectorAll(".product-option");
+        let selectedProduct = "ivory"; // Por defecto
+
+        // Selección de producto
+        productOptions.forEach((option) => {
+            option.addEventListener("click", () => {
+                productOptions.forEach((opt) =>
+                    opt.classList.remove("selected"),
+                );
+                option.classList.add("selected");
+                selectedProduct = (option as HTMLElement).dataset.product;
+            });
+        });
+
+        // Seleccionar el primer producto por defecto
+        if (productOptions.length > 0) {
+            productOptions[0].classList.add("selected");
+        }
+
+        // Manejo del cambio de método de cálculo
+        const methodInputs = document.querySelectorAll(
+            'input[name="calculation_method"]',
+        );
+        const dimensionsInputs = document.getElementById("dimensions-inputs");
+        const areaInput = document.getElementById("area-input");
+
+        methodInputs.forEach((input) => {
+            input.addEventListener("change", function () {
+                if ((this as HTMLInputElement).value === "dimensions") {
+                    dimensionsInputs.style.display = "grid";
+                    areaInput.style.display = "none";
+                    // Limpiar campo de área
+                    (
+                        document.getElementById(
+                            "area_total",
+                        ) as HTMLInputElement
+                    ).value = "";
+                } else {
+                    dimensionsInputs.style.display = "none";
+                    areaInput.style.display = "block";
+                    // Limpiar campos de dimensiones
+                    (
+                        document.getElementById("largo") as HTMLInputElement
+                    ).value = "";
+                    (
+                        document.getElementById("ancho") as HTMLInputElement
+                    ).value = "";
+                }
+            });
+        });
+
+        // Manejo del formulario
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(form as HTMLFormElement);
+            const calculationMethod = formData.get("calculation_method");
+
+            let areaTotal;
+
+            if (calculationMethod === "dimensions") {
+                const largo = parseFloat(formData.get("largo") as string);
+                const ancho = parseFloat(formData.get("ancho") as string);
+
+                if (!largo || !ancho) {
+                    alert("Por favor ingresa las dimensiones del espacio");
+                    return;
+                }
+
+                areaTotal = largo * ancho;
+            } else {
+                const areaInput = parseFloat(
+                    formData.get("area_total") as string,
+                );
+
+                if (!areaInput) {
+                    alert("Por favor ingresa el área total del espacio");
+                    return;
+                }
+
+                areaTotal = areaInput;
+            }
+
+            // Cálculos
+            // Obtener el tamaño de porcelanato seleccionado
+            const porcelanatoSize = formData.get("porcelanato_size");
+            let areaPorPieza, piezasPorCaja, areaPorCaja;
+
+            if (porcelanatoSize === "60x60") {
+                // Porcelanato 60x60 cm = 0.36 m² por pieza
+                areaPorPieza = 0.36;
+                piezasPorCaja = 4;
+                areaPorCaja = 1.44; // 4 piezas × 0.36 m²
+            } else {
+                // Porcelanato 60x120 cm = 0.72 m² por pieza
+                areaPorPieza = 0.72;
+                piezasPorCaja = 2; // Asumiendo 2 piezas por caja para 60x120
+                areaPorCaja = 1.44; // 2 piezas × 0.72 m²
+            }
+
+            const piezasNecesarias = Math.ceil(areaTotal / areaPorPieza);
+            const cajasNecesarias = Math.ceil(piezasNecesarias / piezasPorCaja);
+
+            // Mostrar resultados
+            showResults({
+                areaTotal: areaTotal.toFixed(2),
+                piezasNecesarias,
+                cajasNecesarias,
+                producto: selectedProduct,
+                porcelanatoSize: porcelanatoSize,
+            });
+        });
+
+        function showResults(data) {
+            const productNames = {
+                ivory: "Ivory Plain",
+                dyna: "Dyna Beige",
+                fiesta: "Fiesta",
+                stripe: "Stripe",
+            };
+
+            resultsContent.innerHTML = `
+                <div class="results-display show">
+                    <div class="result-item">
+                        <h4>Área Total</h4>
+                        <span class="value">${data.areaTotal}</span>
+                        <span class="unit">m²</span>
+                    </div>
+                    
+                    <div class="result-item">
+                        <h4>Piezas de Porcelanato</h4>
+                        <span class="value">${data.piezasNecesarias}</span>
+                        <span class="unit">piezas</span>
+                    </div>
+                    
+                    <div class="result-item">
+                        <h4>Cajas Necesarias</h4>
+                        <span class="value">${data.cajasNecesarias}</span>
+                        <span class="unit">cajas</span>
+                    </div>
+                    
+                    <div class="result-item">
+                        <h4>Producto Seleccionado</h4>
+                        <span class="value">${productNames[data.producto]}</span>
+                        <span class="unit">${data.porcelanatoSize} cm</span>
+                    </div>
+                    
+                    <div class="cta-section">
+                        <h4 style="color: var(--color-primary); margin-bottom: 12px; font-size: 1rem; font-weight: 600;">¿Necesitas Cotización?</h4>
+                        <button onclick="window.location.href='/' + '#cotizacion'" style="background: var(--color-accent); color: white; border: 2px solid var(--color-accent); padding: 14px 28px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 1rem; transition: all 0.3s ease; box-shadow: var(--shadow-accent);">
+                            Solicitar Cotización
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            // Animar cada elemento de forma escalonada
+            setTimeout(() => {
+                const resultItems =
+                    resultsContent.querySelectorAll(".result-item");
+                const ctaSection = resultsContent.querySelector(".cta-section");
+
+                // Animar cada elemento de resultado
+                resultItems.forEach((item, index) => {
+                    setTimeout(() => {
+                        item.classList.add("animate-in");
+                    }, index * 150); // 150ms de delay entre cada elemento
+                });
+
+                // Animar la sección de cotización al final
+                setTimeout(
+                    () => {
+                        ctaSection.classList.add("animate-in");
+                    },
+                    resultItems.length * 150 + 100,
+                );
+            }, 50);
+        }
+    });
+</script>

@@ -1,0 +1,97 @@
+---
+// Carrusel Pantalla Completa Moderno
+import { Carousel } from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+
+const slides = [
+  {
+    image: '/assets/slide1.jpg',
+    title: 'Porcelanato Premium',
+    subtitle: 'Calidad y Elegancia'
+  },
+  {
+    image: '/assets/slide2.jpg',
+    title: 'Variedad de Diseños',
+    subtitle: 'Para cada espacio'
+  }
+]
+---
+
+<div class="carousel-container">
+  <Carousel 
+    dots={true}
+    infinite={true}
+    speed={500}
+    slidesToShow={1}
+    slidesToScroll={1}
+    autoplay={true}
+    arrows={false}
+    fade={true}
+  >
+    {slides.map((slide, index) => (
+      <div key={index} class="slide">
+        <img 
+          src={slide.image} 
+          alt={slide.title}
+          class="slide-image"
+        />
+        <div class="slide-content">
+          <h2>{slide.title}</h2>
+          <p>{slide.subtitle}</p>
+        </div>
+      </div>
+    ))}
+  </Carousel>
+</div>
+
+<style>
+  .carousel-container {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .slide {
+    position: relative;
+    height: 100vh;
+  }
+  
+  .slide-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  
+  .slide-content {
+    position: absolute;
+    bottom: 20%;
+    left: 10%;
+    color: white;
+    max-width: 600px;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+  }
+  
+  .slide-content h2 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Efectos modernos */
+  .slick-dots {
+    bottom: 30px;
+  }
+  
+  .slick-dots li button:before {
+    color: white;
+    opacity: 0.5;
+    font-size: 10px;
+  }
+  
+  .slick-dots li.slick-active button:before {
+    color: white;
+    opacity: 1;
+  }
+</style>

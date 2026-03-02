@@ -1,22 +1,308 @@
+---
+import "../styles/design-system.css";
+import ThemeToggle from "../components/ThemeToggle.astro";
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const {
+	title = "Marvex - Porcelanato Premium | Transforma tu Realidad",
+	description = "Descubre la excelencia en porcelanato con Marvex. Tecnología de ultra-baja absorción, resistencia mecánica superior y diseños únicos. Transforma tu hogar con calidad premium.",
+} = Astro.props;
+---
+
 <!doctype html>
-<html lang="en">
+<html lang="es">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/png" href="/favicon-marvex.png" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+
+		<!-- SEO Meta Tags -->
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta
+			name="keywords"
+			content="porcelanato, porcelanato premium, pisos de porcelanato, comprar porcelanato, porcelanato Perú, revestimientos de porcelanato, porcelanato Marvex, porcelanato para baño, porcelanato para cocina, pisos de lujo, losetas porcelanato, baldosas porcelanato"
+		/>
+		<meta name="author" content="Marvex" />
+		<meta name="robots" content="index, follow" />
+		<link rel="canonical" href="https://marvex.com/" />
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://marvex.com/" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:site_name" content="Marvex Porcelanato Premium" />
+		<meta property="og:image" content="/favicon-marvex.png" />
+		<meta property="og:locale" content="es_ES" />
+
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content="https://marvex.com/" />
+		<meta property="twitter:title" content={title} />
+		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content="/favicon-marvex.png" />
+
+		<!-- Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+
+		<!-- Structured Data -->
+		<script type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@type": "Organization",
+				"name": "Marvex",
+				"description": "Fabricante de porcelanato premium con tecnología de ultra-baja absorción",
+				"url": "https://marvex.com",
+				"logo": "/favicon-marvex.png",
+				"sameAs": [
+					"https://www.instagram.com/marvex",
+					"https://www.facebook.com/marvex"
+				]
+			}
+		</script>
+		<script type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@type": "WebPage",
+				"name": "Marvex Porcelanato Premium | Pisos y Revestimientos",
+				"url": "https://marvex.com/",
+				"inLanguage": "es",
+				"description": "Porcelanato premium Marvex: pisos y revestimientos de alta gama con ultra-baja absorción, alta resistencia y diseños elegantes para baños, cocinas y proyectos residenciales y comerciales.",
+				"keywords": [
+					"porcelanato",
+					"porcelanato premium",
+					"pisos de porcelanato",
+					"revestimientos de porcelanato",
+					"porcelanato para baño",
+					"porcelanato para cocina",
+					"porcelanato Marvex"
+				],
+				"about": [
+					{ "@type": "Thing", "name": "Porcelanato" },
+					{ "@type": "Thing", "name": "Revestimientos de porcelanato" },
+					{ "@type": "Thing", "name": "Pisos de porcelanato" }
+				],
+				"publisher": {
+					"@type": "Organization",
+					"name": "Marvex",
+					"logo": {
+						"@type": "ImageObject",
+						"url": "https://marvex.com/favicon-marvex.png"
+					}
+				}
+			}
+		</script>
+
+		<slot name="head" />
+
+		<style is:global>
+			:root {
+				--nav-height: 88px;
+			}
+
+			body {
+				padding-top: var(--nav-height);
+			}
+
+			.global-nav {
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				z-index: 2000;
+				background: #ffffff;
+				box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+				backdrop-filter: blur(8px);
+			}
+
+			.global-nav .nav-inner {
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 18px 20px;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 16px;
+			}
+
+			.nav-brand {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				text-decoration: none;
+				color: #000;
+				font-weight: 700;
+				font-size: 18px;
+				font-family: "Poppins", sans-serif;
+			}
+
+			.nav-brand img {
+				width: 40px;
+				height: 40px;
+				object-fit: contain;
+				border-radius: 12px;
+				box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+			}
+
+			.nav-actions {
+				display: flex;
+				align-items: center;
+				gap: 12px;
+				flex-wrap: wrap;
+				justify-content: flex-end;
+			}
+
+			.nav-btn {
+				display: inline-flex;
+				align-items: center;
+				gap: 10px;
+				padding: 12px 20px;
+				border-radius: 12px;
+				font-weight: 600;
+				font-size: 15px;
+				text-decoration: none;
+				transition: all 0.2s ease;
+				white-space: nowrap;
+			}
+
+			.nav-btn i {
+				font-size: 16px;
+			}
+
+			.nav-btn-secondary {
+				background: #ffffff;
+				color: #b88749;
+				border: 1px solid #d1a770;
+				box-shadow:
+					inset 0 1px 0 rgba(255, 255, 255, 0.8),
+					0 8px 18px rgba(209, 167, 112, 0.18);
+			}
+
+			.nav-btn-secondary:hover {
+				background: #f9f5ee;
+				transform: translateY(-2px);
+				box-shadow:
+					inset 0 1px 0 rgba(255, 255, 255, 0.9),
+					0 10px 22px rgba(209, 167, 112, 0.28);
+			}
+
+			@media (max-width: 900px) {
+				:root {
+					--nav-height: 96px;
+				}
+
+				.global-nav .nav-inner {
+					flex-direction: column;
+					align-items: stretch;
+				}
+
+				.nav-actions {
+					width: 100%;
+					justify-content: center;
+				}
+
+				.nav-btn {
+					flex: 1;
+					justify-content: center;
+					text-align: center;
+				}
+			}
+
+			@media (max-width: 540px) {
+				:root {
+					--nav-height: 110px;
+				}
+
+				.global-nav .nav-inner {
+					padding: 14px 16px;
+				}
+
+				.nav-btn {
+					padding: 12px 14px;
+					font-size: 14px;
+				}
+			}
+		</style>
 	</head>
 	<body>
+		<nav class="global-nav">
+			<div class="nav-inner">
+				<a class="nav-brand" href="/#inicio">
+					<img src="/favicon-marvex.png" alt="Marvex" />
+					<span>Marvex</span>
+				</a>
+				<div class="nav-actions">
+					<a class="nav-btn nav-btn-secondary" href="/#inicio">
+						<i class="fas fa-home"></i>
+						<span>Inicio</span>
+					</a>
+					<a
+						class="nav-btn nav-btn-secondary"
+						href="/calculadora"
+					>
+						<i class="fas fa-calculator"></i>
+						<span>Estima tu Proyecto</span>
+					</a>
+				</div>
+			</div>
+		</nav>
+
 		<slot />
+		<ThemeToggle />
+
+		<script is:inline>
+			// Prevent FOUC (Flash of Unstyled Content)
+			const theme = (() => {
+				if (
+					typeof localStorage !== "undefined" &&
+					localStorage.getItem("theme")
+				) {
+					return localStorage.getItem("theme");
+				}
+				if (
+					window.matchMedia("(prefers-color-scheme: light)").matches
+				) {
+					return "light";
+				}
+				return "dark";
+			})();
+
+			if (theme === "light") {
+				document.documentElement.setAttribute("data-theme", "light");
+			} else {
+				document.documentElement.setAttribute("data-theme", "dark");
+			}
+
+			window.localStorage.setItem("theme", theme);
+
+			// Abrir modal de cotización si existe, de lo contrario navegar al hash
+			document.addEventListener("click", (e) => {
+				const target = e.target as HTMLElement | null;
+				if (!target) return;
+				const link = target.closest("[data-cotizacion]") as
+					| HTMLAnchorElement
+					| null;
+				if (!link) return;
+				if (typeof (window as any).openCotizacionModal === "function") {
+					e.preventDefault();
+					(window as any).openCotizacionModal();
+				} else {
+					// Fallback: navegar al ancla de cotización
+					e.preventDefault();
+					window.location.href = "/#cotizacion";
+				}
+			});
+		</script>
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

@@ -1,0 +1,15 @@
+---
+// Componente HeroSection
+import FullHeightCarousel from './FullHeightCarousel.astro';
+---
+
+<section class="hero-section">
+  <FullHeightCarousel client:load />
+</section>
+
+<style>
+  .hero-section {
+    height: 100vh;
+    position: relative;
+  }
+</style>
